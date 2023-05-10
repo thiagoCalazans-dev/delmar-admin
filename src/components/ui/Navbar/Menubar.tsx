@@ -22,10 +22,7 @@ const MenubarTrigger = React.forwardRef<
 >(({ className, ...props }, ref) => (
   <MenubarPrimitive.Trigger
     ref={ref}
-    className={cn(
-      "",
-      className
-    )}
+    className={cn("", className)}
     {...props}
   />
 ));
@@ -45,10 +42,7 @@ const MenubarContent = React.forwardRef<
         align={align}
         alignOffset={alignOffset}
         sideOffset={sideOffset}
-        className={cn(
-          "",
-          className
-        )}
+        className={cn("", className)}
         {...props}
       />
     </MenubarPrimitive.Portal>
@@ -64,11 +58,7 @@ const MenubarItem = React.forwardRef<
 >(({ className, inset, ...props }, ref) => (
   <MenubarPrimitive.Item
     ref={ref}
-    className={cn(
-      "",
-      inset && "pl-8",
-      className
-    )}
+    className={cn("", inset && "pl-8", className)}
     {...props}
   />
 ));

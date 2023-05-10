@@ -15,7 +15,7 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <body className={raleway.className}>{children}</body>
+      <body className={`${raleway.className} vsc-initialized`}>{children}</body>
     </html>
   );
 }

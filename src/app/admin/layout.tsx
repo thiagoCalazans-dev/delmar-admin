@@ -10,7 +10,7 @@ export default function ProtectedLayout({
   return (
     <>
       <Navbar />
-      {children}
+      <main className="w-full h-full bg-zinc-100">{children}</main>
     </>
   );
 }

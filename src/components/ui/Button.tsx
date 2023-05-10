@@ -7,11 +7,13 @@ const buttonVariants = cva(
   {
     variants: {
       variant: {
-        primary: "bg-brand-500 hover:bg-brand-500/70 text-zinc-300",
+        primary: "bg-zinc-900 hover:bg-zinc-900/70 text-zinc-300",
+        table:
+          "flex h-full cursor-pointer rounded-none select-none items-center  text-sm font-medium text-zinc-100 outline-none  focus:bg-zinc-800 hover:bg-zinc-800",
         destructive:
-          "bg-red-500 text-white hover:bg-red-600 dark:hover:bg-red-600",
+          "bg-transparent text-red-600 border border-red-600 hover:bg-red-600 hover:text-zinc-300",
         outline:
-          "bg-transparent border border-brand-500 hover:bg-brand-500 text-brand-500 hover:text-zinc-300",
+          "bg-transparent border border-zinc-900 hover:bg-zinc-900 text-zinc-900 hover:text-zinc-300",
         ghost:
           "bg-transparent hover:bg-zinc-100 dark:hover:bg-zinc-700 dark:text-zinc-100 dark:hover:text-zinc-100 data-[state=open]:bg-transparent dark:data-[state=open]:bg-transparent",
         link: "bg-transparent dark:bg-transparent underline-offset-4 hover:underline text-zinc-900 dark:text-zinc-100 hover:bg-transparent dark:hover:bg-transparent",
