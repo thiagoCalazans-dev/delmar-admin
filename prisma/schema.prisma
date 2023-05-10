@@ -1,0 +1,122 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model Account {
+  id                String  @id @default(cuid())
+  userId            String
+  type              String
+  provider          String
+  providerAccountId String
+  refresh_token     String?
+  access_token      String?
+  expires_at        Int?
+  token_type        String?
+  scope             String?
+  id_token          String?
+  session_state     String?
+  user              User    @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@unique([provider, providerAccountId])
+  @@map("accounts")
+}
+
+model User {
+  id             String    @id @default(cuid())
+  name           String?
+  email          String?   @unique
+  emailVerified  DateTime?
+  hashedPassword String?
+  image          String?
+  accounts       Account[]
+  createdAt      DateTime  @default(now())
+  updatedAt      DateTime  @updatedAt
+
+  @@map("users")
+}
+
+model Category {
+  id      Int       @id @default(autoincrement())
+  name    String
+  Product Product[]
+
+  @@map("categories")
+}
+
+model Brand {
+  id      Int       @id @default(autoincrement())
+  name    String
+  Product Product[]
+
+  @@map("brands")
+}
+
+model Color {
+  id      Int       @id @default(autoincrement())
+  name    String
+  Storage Storage[]
+
+  @@map("colors")
+}
+
+model Size {
+  id      Int       @id @default(autoincrement())
+  name    String
+  Storage Storage[]
+
+  @@map("sizes")
+}
+
+model Product {
+  id          Int       @id @default(autoincrement())
+  name        String
+  code        String
+  value       Float
+  description String
+  trending    Boolean   @default(false)
+  category    Category  @relation(fields: [categoryId], references: [id])
+  categoryId  Int
+  Storage     Storage[]
+  Brand       Brand?    @relation(fields: [brandId], references: [id])
+  brandId     Int?
+
+  @@map("products")
+}
+
+model Storage {
+  id      Int   @id @default(autoincrement())
+  amount  Int
+  price   Float
+  descont Int   @default(0)
+
+  size   Size @relation(fields: [sizeId], references: [id])
+  sizeId Int
+
+  product   Product @relation(fields: [productId], references: [id])
+  productId Int
+
+  color   Color     @relation(fields: [colorId], references: [id])
+  colorId Int
+  Photos  Picture[]
+
+  @@map("storage")
+}
+
+model Picture {
+  id          Int    @id @default(autoincrement())
+  url         String
+  description String @default("Bikini Photo")
+
+  storage   Storage @relation(fields: [storageId], references: [id])
+  storageId Int
+
+  @@map("pictures")
+}
