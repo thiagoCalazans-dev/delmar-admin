@@ -4,17 +4,16 @@ import { prisma } from "@/libs/prisma";
 
 async function getColors(): Promise<Colors[]> {
   // Fetch data from your API here.
-  const colors = await prisma.color.findMany();
-  console.log(colors);
-  return colors;
+  const categories = await prisma.category.findMany();
+  return categories;
 }
 
 export default async function Colors() {
-  const colors = await getColors();
+  const categories = await getColors();
 
   return (
     <div className="container mx-auto py-10 sm:max-w-2xl">
-      <DataTable columns={columns} data={colors} />
+      <DataTable columns={columns} data={categories} />
     </div>
   );
 }

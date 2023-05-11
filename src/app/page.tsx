@@ -44,7 +44,7 @@ export default function Home() {
 
       if (callback?.ok) {
         console.log("Logged in");
-        router.push("/protected");
+        router.push("/admin");
       }
 
       if (callback?.error) {
