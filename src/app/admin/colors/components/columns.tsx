@@ -1,18 +1,23 @@
 "use client";
 
 import { Button } from "@/components/ui/Button";
+import { api } from "@/libs/axios";
 import { ColumnDef } from "@tanstack/react-table";
 import { Pencil, Trash } from "lucide-react";
 import { ArrowUpDown, MoreHorizontal } from "lucide-react";
 
 // This type is used to define the shape of our data.
 // You can use a Zod schema here if you want.
-export type Colors = {
+export type Color = {
   id: number;
   name: string;
 };
 
-export const columns: ColumnDef<Colors>[] = [
+function handleDelete(data: Color) {
+  api.delete("/color", data);
+}
+
+export const columns: ColumnDef<Color>[] = [
   {
     accessorKey: "id",
     header: ({ column }) => {
@@ -48,8 +53,8 @@ export const columns: ColumnDef<Colors>[] = [
       const actions = row.original;
 
       return (
-        <div className="flex gap-4 justify-end ">
-          <Button variant="outline" onClick={() => console.log(actions)}>
+        <div className="flex gap-2 justify-end ">
+          <Button variant="primary" onClick={() => handleDelete(actions)}>
             <Pencil />
           </Button>
           <Button variant="destructive" onClick={() => console.log(actions)}>

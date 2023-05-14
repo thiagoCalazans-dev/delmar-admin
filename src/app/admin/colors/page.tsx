@@ -4,9 +4,7 @@ import { prisma } from "@/libs/prisma";
 
 async function getColors(): Promise<Colors[]> {
   // Fetch data from your API here.
-  const colors = await prisma.color.findMany();
-  console.log(colors);
-  return colors;
+  return await prisma.color.findMany();
 }
 
 export default async function Colors() {

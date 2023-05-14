@@ -24,6 +24,7 @@ import {
 import { Button } from "@/components/ui/Button";
 import { Input } from "@/components/ui/Input";
 import { useState } from "react";
+import { ColorDialog } from "./DialogColor";
 
 interface DataTableProps<TData, TValue> {
   columns: ColumnDef<TData, TValue>[];
@@ -63,7 +64,7 @@ export function DataTable<TData, TValue>({
           }
           className="flex-1"
         />
-        <Button className="">New Color</Button>
+        <ColorDialog />
       </div>
       <div className="rounded-md border border-zinc-900 overflow-hidden">
         <Table>
