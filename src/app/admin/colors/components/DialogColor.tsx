@@ -8,7 +8,7 @@ import {
   DialogHeader,
 } from "@/components/ui/Dialog";
 import { FormColor } from "./FormColor";
-import { ReactNode } from "react";
+import { Dispatch, ReactNode, SetStateAction, useState } from "react";
 import { Color } from "./columns";
 
 interface ColorDialogProps {
@@ -17,8 +17,14 @@ interface ColorDialogProps {
 }
 
 export function ColorDialog({ children, data }: ColorDialogProps) {
+  const [open, setOpen] = useState(false);
+  
+  function closeDialog () {
+    setOpen(false)
+  }
+
   return (
-    <Dialog>
+    <Dialog open={open} onOpenChange={setOpen}>
       <DialogTrigger asChild>
         <Button>{children}</Button>
       </DialogTrigger>
@@ -26,7 +32,7 @@ export function ColorDialog({ children, data }: ColorDialogProps) {
         <DialogHeader>
           <DialogTitle>New Color</DialogTitle>
         </DialogHeader>
-        <FormColor data={data} />
+        <FormColor data={data} closeDialog={closeDialog} />
       </DialogContent>
     </Dialog>
   );

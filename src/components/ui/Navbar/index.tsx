@@ -18,7 +18,16 @@ export function Navbar() {
 
   return (
     <Menubar className="flex items-center justify-between gap-5 text-zinc-100 w-full h-20 shadow-sm  bg-zinc-900 sm:px-16  ">
-      <Link href="/admin">DELMAR</Link>
+      <Link href="/admin" className="relative flex items-center">
+        <Image
+          height="60"
+          width="60"
+          className="mx-auto w-auto "
+          src="/images/whiteLogo.png"
+          alt="Logo"
+        />
+        <strong className="font-normal">DELMAR</strong>
+      </Link>
       <nav className="flex items-center justify-center gap-5 text-zinc-100 w-full h-20">
         <MenubarMenu>
           <MenubarTrigger className="flex h-full cursor-pointer select-none items-center  px-3 py-1.5 text-sm font-medium text-zinc-100 outline-none  focus:bg-zinc-800 border-b-4 border-transparent hover:border-zinc-100 hover: data-[state=open]:bg-zinc-800">

@@ -1,4 +1,8 @@
-import { prisma } from "@/libs/prisma";
+import {
+  deleteColor,
+  getColorbyId,
+  updateColor,
+} from "@/repository/colorRepository";
 import { NextResponse } from "next/server";
 
 interface params {
@@ -9,36 +13,20 @@ interface params {
 
 export async function GET(request: Request, { params }: params) {
   const id = params.id;
-  const color = await prisma.color.findUnique({
-    where: {
-      id: parseInt(id, 10),
-    },
-  });
-
+  const color = getColorbyId(id);
   return NextResponse.json(color);
 }
 
 export async function PUT(request: Request, { params }: params) {
   const id = params.id;
   const data = await request.json();
-
-  const updatedColor = await prisma.color.update({
-    where: {
-      id: parseInt(id, 10),
-    },
-    data,
-  });
-
+  const updatedColor = updateColor(id, data);
   return NextResponse.json(updatedColor);
 }
 
 export async function DELETE(request: Request, { params }: params) {
   const id = params.id;
-  const deletedColor = await prisma.color.delete({
-    where: {
-      id: parseInt(id, 10),
-    },
-  });
+  const deletedColor = await deleteColor(id);
 
   return NextResponse.json(deletedColor);
 }

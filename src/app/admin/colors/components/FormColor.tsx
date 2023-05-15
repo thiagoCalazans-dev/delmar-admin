@@ -19,9 +19,10 @@ type ColorForm = z.infer<typeof createColorFormSchema>;
 
 interface FormColorProps {
   data?: Color;
+  closeDialog: () => void;
 }
 
-export function FormColor({ data }: FormColorProps) {
+export function FormColor({ data, closeDialog }: FormColorProps) {
   const [isLoading, setIsLoading] = useState(false);
 
   const router = useRouter();
@@ -51,6 +52,7 @@ export function FormColor({ data }: FormColorProps) {
         .then((res) => {
           console.log(res);
           router.refresh();
+          closeDialog();
         })
         .catch((error) => {
           console.log(error);
@@ -59,11 +61,12 @@ export function FormColor({ data }: FormColorProps) {
           setIsLoading(false);
         });
     } else {
-      api
+      await api
         .post("/color", data)
         .then((res) => {
           console.log(res);
           router.refresh();
+          closeDialog();
         })
         .catch((error) => {
           console.log(error);
@@ -92,7 +95,12 @@ export function FormColor({ data }: FormColorProps) {
           />
         </Form.Control>
       </div>
-      <Button className="mt-2" type="submit" variant="primary">
+      <Button
+        className="mt-2"
+        type="submit"
+        variant="primary"
+        disabled={isLoading}
+      >
         Register
       </Button>
     </form>

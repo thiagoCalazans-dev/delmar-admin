@@ -1,8 +1,9 @@
 import { prisma } from "@/libs/prisma";
+import { createColor, getColors } from "@/repository/colorRepository";
 import { NextResponse } from "next/server";
 
 export async function GET(request: Request) {
-  const colors = await prisma.color.findMany();
+  const colors = await getColors();
   return NextResponse.json(colors, { status: 200 });
 }
 
@@ -10,11 +11,7 @@ export async function POST(request: Request) {
   const body = await request.json();
   const { name } = body;
 
-  const color = await prisma.color.create({
-    data: {
-      name,
-    },
-  });
+  const color = await createColor(name);
 
   return NextResponse.json(color, { status: 201 });
 }

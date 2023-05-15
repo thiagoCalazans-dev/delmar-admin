@@ -1,5 +1,7 @@
+import { Suspense } from "react";
 import { Color, columns } from "./components/columns";
 import { DataTable } from "./components/data-table";
+import Loading from "../loading";
 
 async function getColors(): Promise<Color[]> {
   const response = await fetch("http://localhost:3000/api/color", {
@@ -16,7 +18,9 @@ export default async function Colors() {
 
   return (
     <div className="container mx-auto py-10 sm:max-w-2xl">
-      <DataTable columns={columns} data={colors} />
+      <Suspense fallback={<Loading />}>
+        <DataTable columns={columns} data={colors} />
+      </Suspense>
     </div>
   );
 }

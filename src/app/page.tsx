@@ -67,25 +67,16 @@ export default function Home() {
     "
     >
       <Card className="w-full  sm:max-w-xl">
-        <div className="">
-          <Image
-            height="100"
-            width="100"
-            className="mx-auto w-auto "
-            src="/images/logo.jpg"
-            alt="Logo"
-          />
-          <h2
-            className="
-            my-6 
-            text-start
-            text-3xl           
-            tracking-tight 
-         
-          "
-          >
-            Sign in!
-          </h2>
+        <div className="flex justify-center items-end">
+          <div>
+            <Image
+              height="100"
+              width="100"
+              className="mx-auto w-auto"
+              src="/images/newLogo.png"
+              alt="Logo"
+            />
+          </div>
         </div>
         <form className="flex flex-col gap-4 " onSubmit={handleSubmit(Login)}>
           <Form.Control>
