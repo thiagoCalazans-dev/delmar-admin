@@ -1,10 +1,14 @@
-import { Colors, columns } from "./components/columns";
+import { Color, columns } from "./components/columns";
 import { DataTable } from "./components/data-table";
-import { prisma } from "@/libs/prisma";
 
-async function getColors(): Promise<Colors[]> {
-  // Fetch data from your API here.
-  return await prisma.color.findMany();
+async function getColors(): Promise<Color[]> {
+  const response = await fetch("http://localhost:3000/api/color", {
+    cache: "no-store",
+  });
+  if (!response.ok) {
+    throw new Error("failed fetch");
+  }
+  return response.json();
 }
 
 export default async function Colors() {

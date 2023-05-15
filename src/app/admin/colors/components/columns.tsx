@@ -5,17 +5,13 @@ import { api } from "@/libs/axios";
 import { ColumnDef } from "@tanstack/react-table";
 import { Pencil, Trash } from "lucide-react";
 import { ArrowUpDown, MoreHorizontal } from "lucide-react";
+import { ColorDialog } from "./DialogColor";
+import { AlertDialogDeleteColor } from "./AlertDialogDeleteColor";
 
-// This type is used to define the shape of our data.
-// You can use a Zod schema here if you want.
 export type Color = {
   id: number;
   name: string;
 };
-
-function handleDelete(data: Color) {
-  api.delete("/color", data);
-}
 
 export const columns: ColumnDef<Color>[] = [
   {
@@ -54,12 +50,10 @@ export const columns: ColumnDef<Color>[] = [
 
       return (
         <div className="flex gap-2 justify-end ">
-          <Button variant="primary" onClick={() => handleDelete(actions)}>
+          <ColorDialog data={actions}>
             <Pencil />
-          </Button>
-          <Button variant="destructive" onClick={() => console.log(actions)}>
-            <Trash />
-          </Button>
+          </ColorDialog>
+          <AlertDialogDeleteColor id={actions.id} />
         </div>
       );
     },

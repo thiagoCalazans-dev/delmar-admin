@@ -1,13 +1,14 @@
 "use client";
 
 import { Form } from "@/components/ui/Form";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import z from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Button } from "@/components/ui/Button";
 import { api } from "@/libs/axios";
 import { useRouter } from "next/navigation";
+import { Color } from "./columns";
 
 const createColorFormSchema = z.object({
   id: z.number().nullable().default(null),
@@ -16,7 +17,11 @@ const createColorFormSchema = z.object({
 
 type ColorForm = z.infer<typeof createColorFormSchema>;
 
-export function FormColor() {
+interface FormColorProps {
+  data?: Color;
+}
+
+export function FormColor({ data }: FormColorProps) {
   const [isLoading, setIsLoading] = useState(false);
 
   const router = useRouter();
@@ -25,23 +30,48 @@ export function FormColor() {
     register,
     handleSubmit,
     formState: { errors },
+    setValue,
   } = useForm<ColorForm>({
     resolver: zodResolver(createColorFormSchema),
   });
 
-  function onSubmit(data: ColorForm) {
+  useEffect(() => {
+    if (data) {
+      setValue("name", data.name);
+      setValue("id", data.id);
+    }
+  }, []);
+
+  async function onSubmit(data: ColorForm) {
     setIsLoading(true);
-    api
-      .post("/color", data)
-      .then(() => {
-        router.refresh();
-      })
-      .catch((error) => {
-        console.log(error);
-      })
-      .finally(() => {
-        setIsLoading(false);
-      });
+
+    if (data.id !== null) {
+      await api
+        .put(`/color/${data.id}`, data)
+        .then((res) => {
+          console.log(res);
+          router.refresh();
+        })
+        .catch((error) => {
+          console.log(error);
+        })
+        .finally(() => {
+          setIsLoading(false);
+        });
+    } else {
+      api
+        .post("/color", data)
+        .then((res) => {
+          console.log(res);
+          router.refresh();
+        })
+        .catch((error) => {
+          console.log(error);
+        })
+        .finally(() => {
+          setIsLoading(false);
+        });
+    }
   }
 
   return (

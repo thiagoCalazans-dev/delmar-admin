@@ -8,18 +8,25 @@ import {
   DialogHeader,
 } from "@/components/ui/Dialog";
 import { FormColor } from "./FormColor";
+import { ReactNode } from "react";
+import { Color } from "./columns";
 
-export function ColorDialog() {
+interface ColorDialogProps {
+  children: ReactNode;
+  data?: Color;
+}
+
+export function ColorDialog({ children, data }: ColorDialogProps) {
   return (
     <Dialog>
       <DialogTrigger asChild>
-        <Button>New Color</Button>
+        <Button>{children}</Button>
       </DialogTrigger>
       <DialogContent>
         <DialogHeader>
           <DialogTitle>New Color</DialogTitle>
         </DialogHeader>
-        <FormColor />
+        <FormColor data={data} />
       </DialogContent>
     </Dialog>
   );

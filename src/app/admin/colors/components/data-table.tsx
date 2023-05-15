@@ -64,7 +64,7 @@ export function DataTable<TData, TValue>({
           }
           className="flex-1"
         />
-        <ColorDialog />
+        <ColorDialog>New Color</ColorDialog>
       </div>
       <div className="rounded-md border border-zinc-900 overflow-hidden">
         <Table>
