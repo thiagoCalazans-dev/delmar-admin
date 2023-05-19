@@ -4,12 +4,11 @@ import {
   DialogTrigger,
   DialogContent,
   DialogTitle,
-  DialogDescription,
   DialogHeader,
 } from "@/components/ui/Dialog";
 import { FormColor } from "./FormColor";
-import { Dispatch, ReactNode, SetStateAction, useState } from "react";
-import { Color } from "./columns";
+import { ReactNode, useState } from "react";
+import { Color } from "@/@types/types";
 
 interface ColorDialogProps {
   children: ReactNode;
@@ -18,9 +17,9 @@ interface ColorDialogProps {
 
 export function ColorDialog({ children, data }: ColorDialogProps) {
   const [open, setOpen] = useState(false);
-  
-  function closeDialog () {
-    setOpen(false)
+
+  function closeDialog() {
+    setOpen(false);
   }
 
   return (

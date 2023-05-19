@@ -1,5 +1,3 @@
-"use client";
-
 import { Navbar } from "@/components/ui/Navbar";
 
 export default function ProtectedLayout({
@@ -8,9 +6,9 @@ export default function ProtectedLayout({
   children: React.ReactNode;
 }) {
   return (
-    <>
+    <div className="h-screen">
       <Navbar />
-      <main className="w-full h-full bg-zinc-100">{children}</main>
-    </>
+      <main className="w-full bg-zinc-100">{children}</main>
+    </div>
   );
 }

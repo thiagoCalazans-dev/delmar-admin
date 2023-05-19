@@ -24,7 +24,7 @@ import {
 import { Button } from "@/components/ui/Button";
 import { Input } from "@/components/ui/Input";
 import { useState } from "react";
-import { ColorDialog } from "./DialogColor";
+import { ColorDialog } from "../../app/admin/colors/components/DialogColor";
 
 interface DataTableProps<TData, TValue> {
   columns: ColumnDef<TData, TValue>[];

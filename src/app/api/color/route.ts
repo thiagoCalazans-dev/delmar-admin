@@ -1,4 +1,3 @@
-import { prisma } from "@/libs/prisma";
 import { createColor, getColors } from "@/repository/colorRepository";
 import { NextResponse } from "next/server";
 

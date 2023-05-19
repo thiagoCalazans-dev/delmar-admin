@@ -9,7 +9,7 @@ const buttonVariants = cva(
       variant: {
         primary: "bg-zinc-900 hover:bg-zinc-900/70 text-zinc-300",
         table:
-          "flex h-full cursor-pointer rounded-none select-none items-center  text-sm font-medium text-zinc-100 outline-none  focus:bg-zinc-800 hover:bg-zinc-800",
+          "flex h-full cursor-pointer  select-none items-center text-sm font-medium text-zinc-100 outline-none  focus:bg-zinc-800 hover:bg-zinc-800",
         destructive: "bg-red-600 text-zinc-100 hover:bg-red-600/70",
         outline:
           "bg-transparent border border-zinc-900 hover:bg-zinc-900 text-zinc-900 hover:text-zinc-300",

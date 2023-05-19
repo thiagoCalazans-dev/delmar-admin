@@ -68,12 +68,12 @@ export default function Home() {
     >
       <Card className="w-full  sm:max-w-xl">
         <div className="flex justify-center items-end">
-          <div>
+          <div className="flex flex-col items-center p-2">
             <Image
               height="100"
               width="100"
               className="mx-auto w-auto"
-              src="/images/newLogo.png"
+              src="/images/blackLogo.png"
               alt="Logo"
             />
           </div>

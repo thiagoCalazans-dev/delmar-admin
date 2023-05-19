@@ -15,19 +15,18 @@ import { api } from "@/libs/axios";
 import { Trash } from "lucide-react";
 import { useRouter } from "next/navigation";
 
-export function AlertDialogDeleteColor({ id }: { id: number }) {
+export function AlertDeleteDialog({ apiDeleteURL }: { apiDeleteURL: string }) {
   const router = useRouter();
 
   async function handleDelete() {
-    console.log(id);
-    const res = await api.delete(`/color/${id}`);
+    const res = await api.delete(apiDeleteURL);
     router.refresh();
   }
 
   return (
     <AlertDialog>
       <AlertDialogTrigger asChild>
-        <Button variant="destructive">
+        <Button variant="destructive" className="">
           <Trash />
         </Button>
       </AlertDialogTrigger>
@@ -35,8 +34,8 @@ export function AlertDialogDeleteColor({ id }: { id: number }) {
         <AlertDialogHeader>
           <AlertDialogTitle>Are you sure absolutely sure?</AlertDialogTitle>
           <AlertDialogDescription>
-            This action cannot be undone. This will permanently delete your
-            account and remove your data from our servers.
+            This action cannot be undone. This will permanently delete your data
+            from our servers.
           </AlertDialogDescription>
         </AlertDialogHeader>
         <AlertDialogFooter>

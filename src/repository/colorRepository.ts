@@ -1,5 +1,5 @@
-import { Color } from "@/app/admin/colors/components/columns";
 import { prisma } from "@/libs/prisma";
+import { Color } from "@prisma/client";
 
 export async function getColors() {
   return await prisma.color.findMany();

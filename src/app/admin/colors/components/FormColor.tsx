@@ -8,7 +8,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { Button } from "@/components/ui/Button";
 import { api } from "@/libs/axios";
 import { useRouter } from "next/navigation";
-import { Color } from "./columns";
+import { Color } from "@/@types/types";
 
 const createColorFormSchema = z.object({
   id: z.number().nullable().default(null),
