@@ -5,10 +5,10 @@ export async function getBrands() {
   return await prisma.brand.findMany();
 }
 
-export async function getBrandbyId(id: string) {
+export async function getBrandbyId(id: number) {
   return await prisma.brand.findUnique({
     where: {
-      id: parseInt(id, 10),
+      id,
     },
   });
 }
@@ -21,19 +21,19 @@ export async function createBrand(name: string) {
   });
 }
 
-export async function updateBrand(id: string, data: Brand) {
+export async function updateBrand(id: number, data: Brand) {
   return await prisma.brand.update({
     where: {
-      id: parseInt(id, 10),
+      id,
     },
     data,
   });
 }
 
-export async function deleteBrand(id: string) {
+export async function deleteBrand(id: number) {
   return await prisma.brand.delete({
     where: {
-      id: parseInt(id, 10),
+      id,
     },
   });
 }

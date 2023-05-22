@@ -15,7 +15,17 @@ import { api } from "@/libs/axios";
 import { Trash } from "lucide-react";
 import { useRouter } from "next/navigation";
 
-export function AlertDeleteDialog({ apiDeleteURL }: { apiDeleteURL: string }) {
+interface AlertDeleteDialogProps {
+  apiDeleteURL: string;
+  title?: string;
+  description?: string;
+}
+
+export function AlertDeleteDialog({
+  apiDeleteURL,
+  title = "Are you sure absolutely sure?",
+  description = "This action cannot be undone. This will permanently delete your data from our servers.",
+}: AlertDeleteDialogProps) {
   const router = useRouter();
 
   async function handleDelete() {
@@ -32,11 +42,8 @@ export function AlertDeleteDialog({ apiDeleteURL }: { apiDeleteURL: string }) {
       </AlertDialogTrigger>
       <AlertDialogContent>
         <AlertDialogHeader>
-          <AlertDialogTitle>Are you sure absolutely sure?</AlertDialogTitle>
-          <AlertDialogDescription>
-            This action cannot be undone. This will permanently delete your data
-            from our servers.
-          </AlertDialogDescription>
+          <AlertDialogTitle>{title}</AlertDialogTitle>
+          <AlertDialogDescription>{description}</AlertDialogDescription>
         </AlertDialogHeader>
         <AlertDialogFooter>
           <AlertDialogCancel>Cancel</AlertDialogCancel>

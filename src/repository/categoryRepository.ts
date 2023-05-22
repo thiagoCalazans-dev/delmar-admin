@@ -5,10 +5,10 @@ export async function getCategorys() {
   return await prisma.category.findMany();
 }
 
-export async function getCategorybyId(id: string) {
+export async function getCategorybyId(id: number) {
   return await prisma.category.findUnique({
     where: {
-      id: parseInt(id, 10),
+      id,
     },
   });
 }
@@ -21,19 +21,19 @@ export async function createCategory(name: string) {
   });
 }
 
-export async function updateCategory(id: string, data: Category) {
+export async function updateCategory(id: number, data: Category) {
   return await prisma.category.update({
     where: {
-      id: parseInt(id, 10),
+      id,
     },
     data,
   });
 }
 
-export async function deleteCategory(id: string) {
+export async function deleteCategory(id: number) {
   return await prisma.category.delete({
     where: {
-      id: parseInt(id, 10),
+      id,
     },
   });
 }

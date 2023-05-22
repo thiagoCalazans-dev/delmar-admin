@@ -5,10 +5,10 @@ export async function getColors() {
   return await prisma.color.findMany();
 }
 
-export async function getColorbyId(id: string) {
+export async function getColorbyId(id: number) {
   return await prisma.color.findUnique({
     where: {
-      id: parseInt(id, 10),
+      id,
     },
   });
 }
@@ -21,19 +21,19 @@ export async function createColor(name: string) {
   });
 }
 
-export async function updateColor(id: string, data: Color) {
+export async function updateColor(id: number, data: Color) {
   return await prisma.color.update({
     where: {
-      id: parseInt(id, 10),
+      id,
     },
     data,
   });
 }
 
-export async function deleteColor(id: string) {
+export async function deleteColor(id: number) {
   return await prisma.color.delete({
     where: {
-      id: parseInt(id, 10),
+      id,
     },
   });
 }

@@ -5,10 +5,10 @@ export async function getSizes() {
   return await prisma.size.findMany();
 }
 
-export async function getSizebyId(id: string) {
+export async function getSizebyId(id: number) {
   return await prisma.size.findUnique({
     where: {
-      id: parseInt(id, 10),
+      id,
     },
   });
 }
@@ -21,19 +21,19 @@ export async function createSize(name: string) {
   });
 }
 
-export async function updateSize(id: string, data: Size) {
+export async function updateSize(id: number, data: Size) {
   return await prisma.size.update({
     where: {
-      id: parseInt(id, 10),
+      id,
     },
     data,
   });
 }
 
-export async function deleteSize(id: string) {
+export async function deleteSize(id: number) {
   return await prisma.size.delete({
     where: {
-      id: parseInt(id, 10),
+      id,
     },
   });
 }
