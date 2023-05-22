@@ -3,6 +3,7 @@ import {
   getCategorybyId,
   updateCategory,
 } from "@/repository/categoryRepository";
+import { getServerSession } from "next-auth";
 import { NextResponse } from "next/server";
 import z from "zod";
 
@@ -23,6 +24,12 @@ export async function GET(
 }
 
 export async function PUT(request: Request) {
+  const session = await getServerSession();
+
+  if (!session) {
+    return new NextResponse(null, { status: 401 });
+  }
+
   const bodySchema = z.object({
     id: z.coerce.number(),
     name: z.string(),
@@ -45,6 +52,12 @@ export async function DELETE(
   request: Request,
   { params }: { params: paramsType }
 ) {
+  const session = await getServerSession();
+
+  if (!session) {
+    return new NextResponse(null, { status: 401 });
+  }
+
   const { id } = paramsSchema.parse(params);
 
   const deletedCategory = await deleteCategory(id);
