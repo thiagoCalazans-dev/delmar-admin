@@ -4,7 +4,7 @@ import { Button } from "@/components/ui/Button";
 import { ColumnDef } from "@tanstack/react-table";
 import { Pencil } from "lucide-react";
 import { ArrowUpDown } from "lucide-react";
-import { ColorDialog } from "./DialogColor";
+import { DialogColor } from "./DialogColor";
 import { AlertDeleteDialog } from "../../../../components/common/AlertDeleteDialog";
 import { Color } from "@/@types/types";
 
@@ -45,10 +45,10 @@ export const columns: ColumnDef<Color>[] = [
 
       return (
         <div className="flex gap-2 justify-end ">
-          <ColorDialog data={actions}>
+          <DialogColor data={actions}>
             <Pencil />
-          </ColorDialog>
-          <AlertDeleteDialog apiDeleteURL={`/color/${actions.id}`} />
+          </DialogColor>
+          <AlertDeleteDialog apiDeleteURL={`/product/color/${actions.id}`} />
         </div>
       );
     },

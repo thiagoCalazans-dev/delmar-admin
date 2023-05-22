@@ -12,3 +12,8 @@ export interface Brand {
   id: number;
   name: string;
 }
+
+export interface Size {
+  id: number;
+  name: string;
+}

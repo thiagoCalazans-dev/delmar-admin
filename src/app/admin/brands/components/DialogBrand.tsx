@@ -6,16 +6,16 @@ import {
   DialogTitle,
   DialogHeader,
 } from "@/components/ui/Dialog";
-import { FormColor } from "./FormColor";
 import { ReactNode, useState } from "react";
-import { Color } from "@/@types/types";
+import { Brand } from "@/@types/types";
+import { FormBrand } from "./FormBrand";
 
-interface ColorDialogProps {
+interface BrandDialogProps {
   children: ReactNode;
-  data?: Color;
+  data?: Brand;
 }
 
-export function DialogColor({ children, data }: ColorDialogProps) {
+export function DialogBrand({ children, data }: BrandDialogProps) {
   const [open, setOpen] = useState(false);
 
   function closeDialog() {
@@ -29,9 +29,9 @@ export function DialogColor({ children, data }: ColorDialogProps) {
       </DialogTrigger>
       <DialogContent>
         <DialogHeader>
-          <DialogTitle>New Color</DialogTitle>
+          <DialogTitle>New Brand</DialogTitle>
         </DialogHeader>
-        <FormColor data={data} closeDialog={closeDialog} />
+        <FormBrand data={data} closeDialog={closeDialog} />
       </DialogContent>
     </Dialog>
   );

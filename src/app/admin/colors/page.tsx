@@ -1,11 +1,12 @@
 import { Suspense } from "react";
 import { columns } from "./components/columns";
-import { DataTable } from "../../../components/common/DataTable";
+
 import { LoadingLogo } from "@/components/ui/LoadingLogo";
 import { Color } from "@/@types/types";
+import { DataTable } from "./components/DataTable";
 
 async function getColors(): Promise<Color[]> {
-  const response = await fetch("http://localhost:3000/api/color", {
+  const response = await fetch("http://localhost:3000/api/product/color", {
     cache: "no-store",
   });
   if (!response.ok) {

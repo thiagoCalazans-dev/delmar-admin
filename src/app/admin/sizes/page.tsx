@@ -1,18 +1,29 @@
-import { Size, columns } from "./components/columns";
-import { DataTable } from "./components/data-table";
-import { prisma } from "@/libs/prisma";
+import { Suspense } from "react";
+import { columns } from "./components/columns";
+
+import { LoadingLogo } from "@/components/ui/LoadingLogo";
+import { Size } from "@/@types/types";
+import { DataTable } from "./components/DataTable";
 
 async function getSizes(): Promise<Size[]> {
-  // Fetch data from your API here.
-  return await prisma.size.findMany();
+  const response = await fetch("http://localhost:3000/api/product/category", {
+    cache: "no-store",
+  });
+  if (!response.ok) {
+    throw new Error("failed fetch");
+  }
+  return response.json();
 }
 
-export default async function Sizes() {
-  const sizes = await getSizes();
+export default async function Size() {
+  const colors = await getSizes();
 
   return (
-    <div className="container mx-auto py-10 sm:max-w-2xl">
-      <DataTable columns={columns} data={sizes} />
+    <div className="container mx-auto sm:max-w-2xl">
+      <Suspense fallback={<LoadingLogo />}>
+        <div className="w-full flex items-center justify-center"></div>
+        <DataTable columns={columns} data={colors} />
+      </Suspense>
     </div>
   );
 }

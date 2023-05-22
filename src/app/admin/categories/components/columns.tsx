@@ -2,17 +2,13 @@
 
 import { Button } from "@/components/ui/Button";
 import { ColumnDef } from "@tanstack/react-table";
-import { Pencil, Trash } from "lucide-react";
-import { ArrowUpDown, MoreHorizontal } from "lucide-react";
+import { Pencil } from "lucide-react";
+import { ArrowUpDown } from "lucide-react";
+import { DialogCategory } from "./DialogCategory";
+import { AlertDeleteDialog } from "../../../../components/common/AlertDeleteDialog";
+import { Color } from "@/@types/types";
 
-// This type is used to define the shape of our data.
-// You can use a Zod schema here if you want.
-export type Colors = {
-  id: number;
-  name: string;
-};
-
-export const columns: ColumnDef<Colors>[] = [
+export const columns: ColumnDef<Color>[] = [
   {
     accessorKey: "id",
     header: ({ column }) => {
@@ -35,7 +31,7 @@ export const columns: ColumnDef<Colors>[] = [
           variant="table"
           onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
         >
-          Color
+          Categoria
           <ArrowUpDown className="ml-2 h-4 w-4" />
         </Button>
       );
@@ -48,13 +44,11 @@ export const columns: ColumnDef<Colors>[] = [
       const actions = row.original;
 
       return (
-        <div className="flex gap-4 justify-end ">
-          <Button variant="outline" onClick={() => console.log(actions)}>
+        <div className="flex gap-2 justify-end ">
+          <DialogCategory data={actions}>
             <Pencil />
-          </Button>
-          <Button variant="destructive" onClick={() => console.log(actions)}>
-            <Trash />
-          </Button>
+          </DialogCategory>
+          <AlertDeleteDialog apiDeleteURL={`/product/category/${actions.id}`} />
         </div>
       );
     },

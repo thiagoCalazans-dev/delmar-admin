@@ -6,16 +6,16 @@ import {
   DialogTitle,
   DialogHeader,
 } from "@/components/ui/Dialog";
-import { FormColor } from "./FormColor";
 import { ReactNode, useState } from "react";
-import { Color } from "@/@types/types";
+import { Category } from "@/@types/types";
+import { FormCategory } from "./FormCategory";
 
-interface ColorDialogProps {
+interface CategoryDialogProps {
   children: ReactNode;
-  data?: Color;
+  data?: Category;
 }
 
-export function DialogColor({ children, data }: ColorDialogProps) {
+export function DialogCategory({ children, data }: CategoryDialogProps) {
   const [open, setOpen] = useState(false);
 
   function closeDialog() {
@@ -29,9 +29,9 @@ export function DialogColor({ children, data }: ColorDialogProps) {
       </DialogTrigger>
       <DialogContent>
         <DialogHeader>
-          <DialogTitle>New Color</DialogTitle>
+          <DialogTitle>Cadastar Categoria</DialogTitle>
         </DialogHeader>
-        <FormColor data={data} closeDialog={closeDialog} />
+        <FormCategory data={data} closeDialog={closeDialog} />
       </DialogContent>
     </Dialog>
   );

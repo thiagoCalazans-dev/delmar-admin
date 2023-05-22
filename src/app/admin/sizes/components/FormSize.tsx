@@ -8,21 +8,21 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { Button } from "@/components/ui/Button";
 import { api } from "@/libs/axios";
 import { useRouter } from "next/navigation";
-import { Color } from "@/@types/types";
+import { Size } from "@/@types/types";
 
-const createColorFormSchema = z.object({
+const createSizeFormSchema = z.object({
   id: z.number().nullable().default(null),
   name: z.string().nonempty("Campo obrigatório"),
 });
 
-type ColorForm = z.infer<typeof createColorFormSchema>;
+type SizeForm = z.infer<typeof createSizeFormSchema>;
 
-interface FormColorProps {
-  data?: Color;
+interface FormSizeProps {
+  data?: Size;
   closeDialog: () => void;
 }
 
-export function FormColor({ data, closeDialog }: FormColorProps) {
+export function FormSize({ data, closeDialog }: FormSizeProps) {
   const [isLoading, setIsLoading] = useState(false);
 
   const router = useRouter();
@@ -32,8 +32,8 @@ export function FormColor({ data, closeDialog }: FormColorProps) {
     handleSubmit,
     formState: { errors },
     setValue,
-  } = useForm<ColorForm>({
-    resolver: zodResolver(createColorFormSchema),
+  } = useForm<SizeForm>({
+    resolver: zodResolver(createSizeFormSchema),
   });
 
   useEffect(() => {
@@ -43,12 +43,12 @@ export function FormColor({ data, closeDialog }: FormColorProps) {
     }
   }, []);
 
-  async function onSubmit(data: ColorForm) {
+  async function onSubmit(data: SizeForm) {
     setIsLoading(true);
 
     if (data.id !== null) {
       await api
-        .put(`/product/color/${data.id}`, data)
+        .put(`/product/size/${data.id}`, data)
         .then((res) => {
           console.log(res);
           router.refresh();
@@ -62,7 +62,7 @@ export function FormColor({ data, closeDialog }: FormColorProps) {
         });
     } else {
       await api
-        .post("/product/color", data)
+        .post("/product/size", data)
         .then((res) => {
           console.log(res);
           router.refresh();

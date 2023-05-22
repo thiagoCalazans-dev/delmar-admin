@@ -8,21 +8,21 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { Button } from "@/components/ui/Button";
 import { api } from "@/libs/axios";
 import { useRouter } from "next/navigation";
-import { Color } from "@/@types/types";
+import { Brand } from "@/@types/types";
 
-const createColorFormSchema = z.object({
+const createBrandFormSchema = z.object({
   id: z.number().nullable().default(null),
   name: z.string().nonempty("Campo obrigatório"),
 });
 
-type ColorForm = z.infer<typeof createColorFormSchema>;
+type BrandForm = z.infer<typeof createBrandFormSchema>;
 
-interface FormColorProps {
-  data?: Color;
+interface FormBrandProps {
+  data?: Brand;
   closeDialog: () => void;
 }
 
-export function FormColor({ data, closeDialog }: FormColorProps) {
+export function FormBrand({ data, closeDialog }: FormBrandProps) {
   const [isLoading, setIsLoading] = useState(false);
 
   const router = useRouter();
@@ -32,8 +32,8 @@ export function FormColor({ data, closeDialog }: FormColorProps) {
     handleSubmit,
     formState: { errors },
     setValue,
-  } = useForm<ColorForm>({
-    resolver: zodResolver(createColorFormSchema),
+  } = useForm<BrandForm>({
+    resolver: zodResolver(createBrandFormSchema),
   });
 
   useEffect(() => {
@@ -43,12 +43,12 @@ export function FormColor({ data, closeDialog }: FormColorProps) {
     }
   }, []);
 
-  async function onSubmit(data: ColorForm) {
+  async function onSubmit(data: BrandForm) {
     setIsLoading(true);
 
     if (data.id !== null) {
       await api
-        .put(`/product/color/${data.id}`, data)
+        .put(`/product/brand/${data.id}`, data)
         .then((res) => {
           console.log(res);
           router.refresh();
@@ -62,7 +62,7 @@ export function FormColor({ data, closeDialog }: FormColorProps) {
         });
     } else {
       await api
-        .post("/product/color", data)
+        .post("/product/brand", data)
         .then((res) => {
           console.log(res);
           router.refresh();

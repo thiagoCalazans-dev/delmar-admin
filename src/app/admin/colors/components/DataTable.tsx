@@ -24,6 +24,7 @@ import {
 import { Button } from "@/components/ui/Button";
 import { Input } from "@/components/ui/Input";
 import { useState } from "react";
+import { DialogColor } from "./DialogColor";
 
 interface DataTableProps<TData, TValue> {
   columns: ColumnDef<TData, TValue>[];
@@ -56,14 +57,14 @@ export function DataTable<TData, TValue>({
     <>
       <div className="flex items-center gap-2 py-4">
         <Input
-          placeholder="Filter colors..."
+          placeholder="Procure por uma cor..."
           value={table.getColumn("name")?.getFilterValue() as string}
           onChange={(event) =>
             table.getColumn("name")?.setFilterValue(event.target.value)
           }
           className="flex-1"
         />
-        <Button className="">New Color</Button>
+        <DialogColor>Nova Cor</DialogColor>
       </div>
       <div className="rounded-md border border-zinc-900 overflow-hidden">
         <Table>
