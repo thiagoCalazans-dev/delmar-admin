@@ -5,14 +5,16 @@ import { ColumnDef } from "@tanstack/react-table";
 import { Pencil } from "lucide-react";
 import { ArrowUpDown } from "lucide-react";
 import { AlertDeleteDialog } from "../../../../components/common/AlertDeleteDialog";
-import { Color } from "@/@types/types";
+import { Product } from "@/@types/types";
+import { DialogProduct } from "./DialogProduct";
 
-export const columns: ColumnDef<Color>[] = [
+export const columns: ColumnDef<Product>[] = [
   {
     accessorKey: "id",
     header: ({ column }) => {
       return (
         <Button
+          className=""
           variant="table"
           onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
         >
@@ -72,10 +74,19 @@ export const columns: ColumnDef<Color>[] = [
           variant="table"
           onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
         >
-          Preço
+          Custo
           <ArrowUpDown className="ml-2 h-4 w-4" />
         </Button>
       );
+    },
+    cell: ({ row }) => {
+      const amount = parseFloat(row.getValue("value"));
+      const formatted = new Intl.NumberFormat("pt-BR", {
+        style: "currency",
+        currency: "BRL",
+      }).format(amount);
+
+      return <>{formatted}</>;
     },
   },
   {
@@ -86,9 +97,9 @@ export const columns: ColumnDef<Color>[] = [
 
       return (
         <div className="flex gap-2 justify-end ">
-          <Button onClick={() => console.log(actions)}>
+          <DialogProduct data={actions}>
             <Pencil />
-          </Button>
+          </DialogProduct>
           <AlertDeleteDialog apiDeleteURL={`/product/${actions.id}`} />
         </div>
       );

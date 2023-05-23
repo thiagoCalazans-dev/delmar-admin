@@ -21,7 +21,6 @@ export default async function Colors() {
   return (
     <div className="container mx-auto sm:max-w-2xl">
       <Suspense fallback={<LoadingLogo />}>
-        <div className="w-full flex items-center justify-center"></div>
         <DataTable columns={columns} data={colors} />
       </Suspense>
     </div>
