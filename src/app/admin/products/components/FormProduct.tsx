@@ -9,23 +9,44 @@ import { Button } from "@/components/ui/Button";
 import { api } from "@/libs/axios";
 import { useRouter } from "next/navigation";
 import { Product } from "@/@types/types";
-import { ComboboxBrands } from "./ComboboxBrands";
-import {
-  Select,
-  SelectTrigger,
-  SelectContent,
-  SelectValue,
-  SelectItem,
-} from "@/components/ui/Select";
-import { error } from "console";
+import { RadioGroup, RadioGroupItem } from "@/components/ui/RadioGroup";
+import { Label } from "@/components/ui/Form/Label";
+import { SelectBrands } from "@/components/common/SelectButtons/SelectBrands";
+import { SelectCategories } from "@/components/common/SelectButtons/SelectCategories";
+import { Checkbox } from "@radix-ui/react-checkbox";
+import { ErrorMessage } from "@/components/ui/Form/ErrorMessage";
 
 const createProductFormSchema = z.object({
   id: z.number().nullable().default(null),
   name: z.string().nonempty("Campo obrigatório"),
   code: z.string(),
   description: z.string(),
-  value: z.number(),
-  brandId: z.number(),
+  value: z.string().refine(
+    (valor) => {
+      // Expressão regular para verificar números, vírgulas, pontos e no máximo duas casas decimais
+      const regex = /^[\d,.]+(\.\d{1,2})?$/;
+
+      // Verificar se a string corresponde à expressão regular
+      if (!regex.test(valor)) {
+        return false;
+      }
+
+      // Verificar se não há mais de duas casas decimais
+      const partes = valor.replace(",", ".").split(".");
+      if (partes[1] && partes[1].length > 2) {
+        return false;
+      }
+
+      return true;
+    },
+    {
+      message:
+        "Apenas números, vírgulas, e no máximo duas casas decimais são permitidos.",
+    }
+  ),
+  brandId: z.string(),
+  categoryId: z.string(),
+  trending: z.boolean(),
 });
 
 type ProductForm = z.infer<typeof createProductFormSchema>;
@@ -56,49 +77,48 @@ export function FormProduct({ data, closeDialog }: FormProductProps) {
       setValue("id", data.id);
       setValue("code", data.code);
       setValue("description", data.description);
-      setValue("value", data.value);
+      setValue("value", String(data.value));
+      setValue("brandId", String(data.brandId));
+      setValue("categoryId", String(data.categoryId));
+      setValue("trending", data.trending);
     }
   }, []);
 
   async function onSubmit(data: ProductForm) {
     setIsLoading(true);
-
-    console.log(data);
-    console.log("erro:", errors);
-
-    // if (data.id !== null) {
-    //   await api
-    //     .put(`/product/${data.id}`, data)
-    //     .then((res) => {
-    //       console.log(res);
-    //       router.refresh();
-    //       closeDialog();
-    //     })
-    //     .catch((error) => {
-    //       console.log(error);
-    //     })
-    //     .finally(() => {
-    //       setIsLoading(false);
-    //     });
-    // } else {
-    //   await api
-    //     .post("/product", data)
-    //     .then((res) => {
-    //       console.log(res);
-    //       router.refresh();
-    //       closeDialog();
-    //     })
-    //     .catch((error) => {
-    //       console.log(error);
-    //     })
-    //     .finally(() => {
-    //       setIsLoading(false);
-    //     });
-    // }
+    if (data.id !== null) {
+      await api
+        .put(`/product/${data.id}`, data)
+        .then((res) => {
+          console.log(res);
+          router.refresh();
+          closeDialog();
+        })
+        .catch((error) => {
+          console.log(error);
+        })
+        .finally(() => {
+          setIsLoading(false);
+        });
+    } else {
+      await api
+        .post("/product", data)
+        .then((res) => {
+          console.log(res);
+          router.refresh();
+          closeDialog();
+        })
+        .catch((error) => {
+          console.log(error);
+        })
+        .finally(() => {
+          setIsLoading(false);
+        });
+    }
   }
 
   return (
-    <form className="flex flex-col gap-4 " onSubmit={handleSubmit(onSubmit)}>
+    <form className="flex flex-col gap-4" onSubmit={handleSubmit(onSubmit)}>
       <div className="flex flex-col  items-start">
         <Form.Control>
           <Form.Label htmlFor="id">Id</Form.Label>
@@ -136,7 +156,7 @@ export function FormProduct({ data, closeDialog }: FormProductProps) {
         </Form.Control>
 
         <Form.Control className="w-full flex items-end justify-between gap-2">
-          <div className="flex-1">
+          <div className="flex-1 min-w-[8rem]">
             <Form.Label htmlFor="value">Valor</Form.Label>
             <Form.Input
               id="value"
@@ -149,25 +169,35 @@ export function FormProduct({ data, closeDialog }: FormProductProps) {
           <Controller
             name="brandId"
             control={control}
-            render={({ field }) => (
-              <Select
-                onValueChange={field.onChange}
-                defaultValue={String(field.value)}
-              >
-                <SelectTrigger>
-                  <SelectValue placeholder="Escolha uma marca.." />
-                </SelectTrigger>
-
-                <SelectContent>
-                  <SelectItem value="1">Marca 1</SelectItem>
-                  <SelectItem value="2">Marca 2</SelectItem>
-                  <SelectItem value="3">Marca 3</SelectItem>
-                </SelectContent>
-              </Select>
-            )}
+            render={({ field }) => <SelectBrands field={field} data={data} />}
           />
         </Form.Control>
       </div>
+      <Controller
+        name="categoryId"
+        control={control}
+        render={({ field }) => <SelectCategories field={field} data={data} />}
+      />
+      <Controller
+        name="trending"
+        control={control}
+        render={({ field }) => (
+          <div className="flex items-center justify-end space-x-2">
+            <Checkbox
+              checked={field.value}
+              onCheckedChange={field.onChange}
+              id="trending"
+              className="peer h-4 w-4 shrink-0 rounded-full border border-zinc-300 ring-offset-zinc-900 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50 data-[state=checked]:bg-zinc-900  data-[state=checked]:text-zinc-100"
+            />
+            <label
+              htmlFor="trending"
+              className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
+            >
+              Trending
+            </label>
+          </div>
+        )}
+      />
       <Button
         className="mt-2"
         type="submit"
