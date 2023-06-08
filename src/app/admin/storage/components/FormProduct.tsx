@@ -9,9 +9,12 @@ import { Button } from "@/components/ui/Button";
 import { api } from "@/libs/axios";
 import { useRouter } from "next/navigation";
 import { Product } from "@/@types/types";
+import { RadioGroup, RadioGroupItem } from "@/components/ui/RadioGroup";
+import { Label } from "@/components/ui/Form/Label";
 import { SelectBrands } from "@/components/common/SelectButtons/SelectBrands";
 import { SelectCategories } from "@/components/common/SelectButtons/SelectCategories";
 import { Checkbox } from "@radix-ui/react-checkbox";
+import { ErrorMessage } from "@/components/ui/Form/ErrorMessage";
 
 const createProductFormSchema = z.object({
   id: z.number().nullable().default(null),
@@ -21,7 +24,6 @@ const createProductFormSchema = z.object({
   value: z
     .string()
     .nonempty("Required")
-    .transform((value) => value.replace(",", "."))
     .refine(
       (valor) => {
         // Expressão regular para verificar números, vírgulas, pontos e no máximo duas casas decimais
@@ -42,7 +44,7 @@ const createProductFormSchema = z.object({
       },
       {
         message:
-          "Apenas números, vírgulas e no máximo duas casas decimais são permitidos.",
+          "Apenas números, vírgulas, e no máximo duas casas decimais são permitidos.",
       }
     ),
   brandId: z.string().nonempty("Campo obrigatório"),

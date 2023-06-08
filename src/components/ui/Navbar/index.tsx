@@ -60,6 +60,7 @@ export function Navbar() {
           className="w-auto h-16"
           src="/images/whiteLogo.png"
           alt="Logo"
+          priority
         />
       </Link>
       <div className="flex flex-1 items-center justify-between">
@@ -73,18 +74,22 @@ export function Navbar() {
                 return (
                   <MenubarItem
                     key={item.name}
-                    onClick={() => router.push(item.path)}
                     className="px-2 relative flex cursor-pointer select-none items-center   py-1.5 text-sm outline-none focus:bg-zinc-700 focus:text-zinc-100  data-[disabled]:pointer-events-none data-[disabled]:opacity-50"
                   >
-                    {item.name}
+                    <Link href={item.path} className="w-full text-start">
+                      {item.name}
+                    </Link>
                   </MenubarItem>
                 );
               })}
             </MenubarContent>
           </MenubarMenu>
-          <span className="flex h-full cursor-pointer select-none items-center  px-3 py-1.5 text-sm font-medium text-zinc-100 outline-none  focus:bg-zinc-800 hover:bg-zinc-700 hover: data-[state=open]:bg-zinc-800">
+          <Link
+            href="/admin/storage"
+            className="flex h-full cursor-pointer select-none items-center  px-3 py-1.5 text-sm font-medium text-zinc-100 outline-none  focus:bg-zinc-800 hover:bg-zinc-700 hover: data-[state=open]:bg-zinc-800"
+          >
             Estoque
-          </span>
+          </Link>
         </nav>
         <Button variant="ghost">
           <DoorOpen />

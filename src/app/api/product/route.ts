@@ -11,7 +11,6 @@ export async function GET(request: Request) {
 
 export async function POST(request: Request) {
   const session = await getServerSession();
-
   if (!session) {
     return new NextResponse(null, { status: 401 });
   }
@@ -21,7 +20,7 @@ export async function POST(request: Request) {
     code: z.string(),
     value: z.coerce.number(),
     description: z.string(),
-    trending: z.coerce.boolean(),
+    trending: z.boolean(),
     categoryId: z.coerce.number(),
     brandId: z.coerce.number(),
   });
@@ -31,6 +30,5 @@ export async function POST(request: Request) {
   const data = bodySchema.parse(body);
 
   const product = await createProduct(data);
-
   return NextResponse.json(product, { status: 201 });
 }
