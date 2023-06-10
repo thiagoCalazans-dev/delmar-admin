@@ -8,13 +8,18 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { Button } from "@/components/ui/Button";
 import { api } from "@/libs/axios";
 import { useRouter } from "next/navigation";
-import { SelectBrands } from "@/components/common/SelectButtons/SelectBrands";
-import { SelectCategories } from "@/components/common/SelectButtons/SelectCategories";
-import { Checkbox } from "@radix-ui/react-checkbox";
+import { SelectSizes } from "@/components/common/SelectButtons/SelectSizes";
+import { Storage } from "@/@types/types";
+import { SelectColors } from "@/components/common/SelectButtons/SelectColors";
+import { Search } from "lucide-react";
+import { SearchProductDialog } from "@/components/common/Dialog/SearchProductDialog";
 
 const createStorageFormSchema = z.object({
   id: z.number().nullable().default(null),
-  productId: z.string().nonempty("Campo obrigatório"),
+  product: z.object({
+    id: z.string().nonempty("Campo obrigatório"),
+    name: z.string().nonempty()
+  }),
   sizeId: z.string().nonempty("Campo obrigatório"),
   colorId: z.string().nonempty("Campo obrigatório"),
   price: z
@@ -50,7 +55,7 @@ const createStorageFormSchema = z.object({
 type StorageForm = z.infer<typeof createStorageFormSchema>;
 
 interface FormStorageProps {
-  data?: StorageForm;
+  data?: Storage;
   closeDialog: () => void;
 }
 
@@ -73,15 +78,15 @@ export function FormStorage({ data, closeDialog }: FormStorageProps) {
 
   useEffect(() => {
     if (data) {
-      setValue("productId", data.productId);
+      setValue("product.id", String(data.product.id));
+      setValue("product.name", String(data.product.name));
       setValue("id", data.id);
-      setValue("amount", data.amount);
-      setValue("colorId", data.colorId);
+      setValue("amount", String(data.amount));
+      setValue("colorId", String(data.color.id));
       setValue("price", String(data.price));
       setValue("descont", String(data.descont));
-      setValue("sizeId", String(data.sizeId));
-    }
-  }, []);
+      setValue("sizeId", String(data.size.id));
+  }}, []);
 
   async function onSubmit(data: StorageForm) {
     setIsLoading(true);
@@ -125,67 +130,79 @@ export function FormStorage({ data, closeDialog }: FormStorageProps) {
             <Form.Input id="id" disabled register={register} />
           </Form.Control>
           <Form.Control className="w-full ">
-            <Form.Label htmlFor="productId">Id Produto</Form.Label>
+            <Form.Label htmlFor="productId">Produto</Form.Label>
+            <div className="flex gap-2">
             <Form.Input
-              id="productId"
+              id="product.id"
               type="text"
               disabled={isLoading}
               register={register}
               required
+              className="max-w-[3rem]"
             />
-            <Form.ErrorMessage field="code" />
-          </Form.Control>
-          <Form.Control className="w-full ">
-            <Form.Label htmlFor="name">Name</Form.Label>
-            <Form.Input
-              id="name"
-              type="text"
-              disabled={isLoading}
-              register={register}
-              required
-            />
-            <Form.ErrorMessage field="name" />
-          </Form.Control>
-          <Form.Control className="w-full ">
-            <Form.Label htmlFor="description">Descrição</Form.Label>
-            <Form.Input
-              id="description"
-              type="text"
-              disabled={isLoading}
-              register={register}
-              required
-            />
-            <Form.ErrorMessage field="description" />
-          </Form.Control>
+            <Form.Input id="product.name" disabled register={register} />
+<SearchProductDialog/>
+            
+            </div>
+            <Form.ErrorMessage field="product.id" />
+            
+          </Form.Control >
+         
 
           <Form.Control className="w-full flex items-end justify-between gap-2">
             <div className="flex-1 min-w-[8rem]">
-              <Form.Label htmlFor="value">Valor</Form.Label>
+              <Form.Label htmlFor="price">Preço</Form.Label>
               <Form.Input
-                id="value"
+                id="price"
                 type="text"
                 disabled={isLoading}
                 register={register}
                 required
               />
-            </div>
-            <Controller
-              name="brandId"
-              control={control}
-              render={({ field }) => <SelectBrands field={field} data={data} />}
+            </div>   
+            <div className="flex-1 min-w-[8rem]">
+            <Form.Label htmlFor="descont">Desconto</Form.Label>
+            <Form.Input
+              id="descont"
+              type="text"
+              disabled={isLoading}
+              register={register}
+              required
             />
+            <Form.ErrorMessage field="amount" />
+          </div>  
+          <div className="flex-1 min-w-[8rem]">
+            <Form.Label htmlFor="amount">Quantidade</Form.Label>
+            <Form.Input
+              id="amount"
+              type="text"
+              disabled={isLoading}
+              register={register}
+              required
+            />
+            <Form.ErrorMessage field="amount" />
+          </div>      
           </Form.Control>
           <div className="w-full flex items-end justify-between gap-2">
-            <Form.ErrorMessage field="value" />
-            <Form.ErrorMessage field="brandId" />
+            <Form.ErrorMessage field="price" />
+            
           </div>
         </div>
+        <Form.Control>
         <Controller
-          name="categoryId"
+              name="sizeId"
+              control={control}
+              render={({ field }) => <SelectSizes field={field} data={data} />}
+            />
+            </Form.Control>
+            <Form.Control>
+        <Controller
+          name="colorId"
           control={control}
-          render={({ field }) => <SelectCategories field={field} data={data} />}
+          render={({ field }) => <SelectColors field={field} data={data} />}
         />
-        <Form.ErrorMessage field="categoryId" />
+        <Form.ErrorMessage field="colorId" />
+        </Form.Control>
         <Button
           className="mt-2"
           type="submit"
