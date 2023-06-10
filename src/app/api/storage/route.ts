@@ -23,26 +23,25 @@ export async function GET(request: Request) {
   return NextResponse.json(storages, { status: 200 });
 }
 
-// export async function POST(request: Request) {
-//   const session = await getServerSession();
-//   if (!session) {
-//     return new NextResponse(null, { status: 401 });
-//   }
+export async function POST(request: Request) {
+  // const session = await getServerSession();
+  // if (!session) {
+  //   return new NextResponse(null, { status: 401 });
+  // }
 
-//   const bodySchema = z.object({
-//     name: z.string(),
-//     code: z.string(),
-//     value: z.coerce.number(),
-//     description: z.string(),
-//     trending: z.boolean(),
-//     categoryId: z.coerce.number(),
-//     brandId: z.coerce.number(),
-//   });
+  const bodySchema = z.object({
+    productId: z.coerce.number(),
+    sizeId: z.coerce.number(),
+    colorId: z.coerce.number(),
+    price: z.coerce.number(),
+    descont: z.coerce.number(),
+    amount: z.coerce.number(),
+  });
 
-//   const body = await request.json();
+  const body = await request.json();
 
-//   const data = bodySchema.parse(body);
+  const data = bodySchema.parse(body);
 
-//   const product = await createProduct(data);
-//   return NextResponse.json(product, { status: 201 });
-// }
+  const product = await createStorage(data);
+  return NextResponse.json(product, { status: 201 });
+}

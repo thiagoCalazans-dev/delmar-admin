@@ -57,14 +57,14 @@ export function DataTable<TData, TValue>({
     <>
       <div className="flex items-center gap-2 py-4">
         <Input
-          placeholder="Procure por uma categoria..."
+          placeholder="Procure por produto..."
           value={table.getColumn("name")?.getFilterValue() as string}
           onChange={(event) =>
             table.getColumn("name")?.setFilterValue(event.target.value)
           }
           className="flex-1"
         />
-        <DialogProduct>Nova Categoria</DialogProduct>
+        <DialogProduct>Novo Produto</DialogProduct>
       </div>
       <div className="rounded-md border border-zinc-900 overflow-hidden">
         <Table>

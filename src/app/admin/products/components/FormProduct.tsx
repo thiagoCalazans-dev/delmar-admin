@@ -47,7 +47,7 @@ const createProductFormSchema = z.object({
     ),
   brandId: z.string().nonempty("Campo obrigatório"),
   categoryId: z.string().nonempty("Campo obrigatório"),
-  trending: z.boolean(),
+  trending: z.boolean().default(false),
 });
 
 type ProductForm = z.infer<typeof createProductFormSchema>;

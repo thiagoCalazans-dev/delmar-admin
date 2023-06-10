@@ -107,6 +107,7 @@ model Storage {
   colorId Int
   Photos  Picture[]
 
+  @@unique([productId, sizeId, colorId])
   @@map("storage")
 }
 

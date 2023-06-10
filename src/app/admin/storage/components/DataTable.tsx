@@ -24,7 +24,7 @@ import {
 import { Button } from "@/components/ui/Button";
 import { Input } from "@/components/ui/Input";
 import { useState } from "react";
-import { DialogProduct } from "./DialogProduct";
+import { DialogStorage } from "./DialogStorage";
 
 interface DataTableProps<TData, TValue> {
   columns: ColumnDef<TData, TValue>[];
@@ -64,7 +64,7 @@ export function DataTable<TData, TValue>({
           }
           className="flex-1"
         />
-        <DialogProduct>Entrada</DialogProduct>
+        <DialogStorage>Entrada</DialogStorage>
       </div>
       <div className="rounded-md border border-zinc-900 overflow-hidden">
         <Table>

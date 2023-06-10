@@ -7,15 +7,15 @@ import {
   DialogHeader,
 } from "@/components/ui/Dialog";
 import { ReactNode, useState } from "react";
-import { Product } from "@/@types/types";
-import { FormProduct } from "./FormProduct";
+import { Storage } from "@/@types/types";
+import { FormStorage } from "./FormStorage";
 
-interface ProductDialogProps {
+interface StorageDialogProps {
   children: ReactNode;
-  data?: Product;
+  data?: Storage;
 }
 
-export function DialogProduct({ children, data }: ProductDialogProps) {
+export function DialogStorage({ children, data }: StorageDialogProps) {
   const [open, setOpen] = useState(false);
 
   function closeDialog() {
@@ -31,7 +31,7 @@ export function DialogProduct({ children, data }: ProductDialogProps) {
         <DialogHeader>
           <DialogTitle>Cadastar Produto</DialogTitle>
         </DialogHeader>
-        <FormProduct data={data} closeDialog={closeDialog} />
+        <FormStorage data={data} closeDialog={closeDialog} />
       </DialogContent>
     </Dialog>
   );

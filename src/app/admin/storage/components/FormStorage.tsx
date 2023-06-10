@@ -8,20 +8,16 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { Button } from "@/components/ui/Button";
 import { api } from "@/libs/axios";
 import { useRouter } from "next/navigation";
-import { Product } from "@/@types/types";
-import { RadioGroup, RadioGroupItem } from "@/components/ui/RadioGroup";
-import { Label } from "@/components/ui/Form/Label";
 import { SelectBrands } from "@/components/common/SelectButtons/SelectBrands";
 import { SelectCategories } from "@/components/common/SelectButtons/SelectCategories";
 import { Checkbox } from "@radix-ui/react-checkbox";
-import { ErrorMessage } from "@/components/ui/Form/ErrorMessage";
 
-const createProductFormSchema = z.object({
+const createStorageFormSchema = z.object({
   id: z.number().nullable().default(null),
-  name: z.string().nonempty("Required"),
-  code: z.string().nonempty("Required"),
-  description: z.string().nonempty("Required"),
-  value: z
+  productId: z.string().nonempty("Campo obrigatório"),
+  sizeId: z.string().nonempty("Campo obrigatório"),
+  colorId: z.string().nonempty("Campo obrigatório"),
+  price: z
     .string()
     .nonempty("Required")
     .refine(
@@ -47,25 +43,24 @@ const createProductFormSchema = z.object({
           "Apenas números, vírgulas, e no máximo duas casas decimais são permitidos.",
       }
     ),
-  brandId: z.string().nonempty("Campo obrigatório"),
-  categoryId: z.string().nonempty("Campo obrigatório"),
-  trending: z.boolean(),
+  descont: z.string().default("0"),
+  amount: z.string(),
 });
 
-type ProductForm = z.infer<typeof createProductFormSchema>;
+type StorageForm = z.infer<typeof createStorageFormSchema>;
 
-interface FormProductProps {
-  data?: Product;
+interface FormStorageProps {
+  data?: StorageForm;
   closeDialog: () => void;
 }
 
-export function FormProduct({ data, closeDialog }: FormProductProps) {
+export function FormStorage({ data, closeDialog }: FormStorageProps) {
   const [isLoading, setIsLoading] = useState(false);
 
   const router = useRouter();
 
-  const createUseForm = useForm<ProductForm>({
-    resolver: zodResolver(createProductFormSchema),
+  const createUseForm = useForm<StorageForm>({
+    resolver: zodResolver(createStorageFormSchema),
   });
 
   const {
@@ -78,18 +73,17 @@ export function FormProduct({ data, closeDialog }: FormProductProps) {
 
   useEffect(() => {
     if (data) {
-      setValue("name", data.name);
+      setValue("productId", data.productId);
       setValue("id", data.id);
-      setValue("code", data.code);
-      setValue("description", data.description);
-      setValue("value", String(data.value));
-      setValue("brandId", String(data.brandId));
-      setValue("categoryId", String(data.categoryId));
-      setValue("trending", data.trending);
+      setValue("amount", data.amount);
+      setValue("colorId", data.colorId);
+      setValue("price", String(data.price));
+      setValue("descont", String(data.descont));
+      setValue("sizeId", String(data.sizeId));
     }
   }, []);
 
-  async function onSubmit(data: ProductForm) {
+  async function onSubmit(data: StorageForm) {
     setIsLoading(true);
     if (data.id !== null) {
       await api
@@ -131,9 +125,9 @@ export function FormProduct({ data, closeDialog }: FormProductProps) {
             <Form.Input id="id" disabled register={register} />
           </Form.Control>
           <Form.Control className="w-full ">
-            <Form.Label htmlFor="code">Código</Form.Label>
+            <Form.Label htmlFor="productId">Id Produto</Form.Label>
             <Form.Input
-              id="code"
+              id="productId"
               type="text"
               disabled={isLoading}
               register={register}
@@ -192,26 +186,6 @@ export function FormProduct({ data, closeDialog }: FormProductProps) {
           render={({ field }) => <SelectCategories field={field} data={data} />}
         />
         <Form.ErrorMessage field="categoryId" />
-        <Controller
-          name="trending"
-          control={control}
-          render={({ field }) => (
-            <div className="flex items-center justify-end space-x-2">
-              <Checkbox
-                checked={field.value}
-                onCheckedChange={field.onChange}
-                id="trending"
-                className="peer h-4 w-4 shrink-0 rounded-full border border-zinc-300 ring-offset-zinc-900 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50 data-[state=checked]:bg-zinc-900  data-[state=checked]:text-zinc-100"
-              />
-              <label
-                htmlFor="trending"
-                className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
-              >
-                Trending
-              </label>
-            </div>
-          )}
-        />
         <Button
           className="mt-2"
           type="submit"

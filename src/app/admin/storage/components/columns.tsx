@@ -2,7 +2,7 @@
 
 import { Button } from "@/components/ui/Button";
 import { ColumnDef } from "@tanstack/react-table";
-import { ArrowUpDown } from "lucide-react";
+import { ArrowUpDown, Minus, Plus } from "lucide-react";
 import { Storage } from "@/@types/types";
 
 export const columns: ColumnDef<Storage>[] = [
@@ -96,6 +96,23 @@ export const columns: ColumnDef<Storage>[] = [
           Quantidade
           <ArrowUpDown className="ml-2 h-4 w-4" />
         </Button>
+      );
+    },
+    cell: ({ row }) => {
+      const data = row.original;
+
+      return (
+        <div className="flex gap-2">
+          <Button size="sm">
+            <Minus />
+          </Button>
+          <div className="flex items-center justify-center border border-zinc-900 rounded-md min-w-[2rem]">
+            {data.amount}
+          </div>
+          <Button size="sm">
+            <Plus />
+          </Button>
+        </div>
       );
     },
   },
