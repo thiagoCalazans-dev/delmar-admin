@@ -6,9 +6,9 @@ export async function getColors() {
 }
 
 export async function getColorbyId(id: number) {
-  return await prisma.color.findUnique({
+  return await prisma.color.findFirstOrThrow({
     where: {
-      id,
+      id: id,
     },
   });
 }

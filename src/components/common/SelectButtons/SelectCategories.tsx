@@ -21,7 +21,7 @@ async function getCategories(): Promise<Category[]> {
 }
 
 export function SelectCategories({ field, data }: SelectCategoryProps) {
-  const { data: category, isLoading } = useQuery("category", getCategories);
+  const { data: category, isLoading } = useQuery("categories", getCategories);
 
   if (isLoading) {
     return <Spinner />;

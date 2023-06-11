@@ -17,6 +17,12 @@ export async function getStoragebyId(id: number) {
     where: {
       id,
     },
+    include: {
+      color: true,
+      product: true,
+      size: true,
+      Photos: true,
+    },
   });
 }
 

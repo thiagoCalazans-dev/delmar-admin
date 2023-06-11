@@ -2,8 +2,9 @@
 
 import { Button } from "@/components/ui/Button";
 import { ColumnDef } from "@tanstack/react-table";
-import { ArrowUpDown, Minus, Plus } from "lucide-react";
+import { ArrowUpDown, Minus, Plus, Search } from "lucide-react";
 import { Storage } from "@/@types/types";
+import Link from "next/link";
 
 export const columns: ColumnDef<Storage>[] = [
   {
@@ -113,6 +114,32 @@ export const columns: ColumnDef<Storage>[] = [
             <Plus />
           </Button>
         </div>
+      );
+    },
+  },
+  {
+    accessorKey: "details",
+    header: ({ column }) => {
+      return (
+        <Button
+          variant="table"
+          onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
+        >
+          Details
+          <ArrowUpDown className="ml-2 h-4 w-4" />
+        </Button>
+      );
+    },
+    cell: ({ row }) => {
+      const data = row.original;
+
+      return (
+        <Link
+          className="hover:text-brand-500"
+          href={`/admin/storage/${data.id}`}
+        >
+          <Search />
+        </Link>
       );
     },
   },

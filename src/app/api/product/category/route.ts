@@ -4,8 +4,8 @@ import { NextResponse } from "next/server";
 import { z } from "zod";
 
 export async function GET(request: Request) {
-  const colors = await getCategorys();
-  return NextResponse.json(colors, { status: 200 });
+  const categories = await getCategorys();
+  return NextResponse.json(categories, { status: 200 });
 }
 
 export async function POST(request: Request) {
@@ -23,7 +23,7 @@ export async function POST(request: Request) {
 
   const { name } = bodySchema.parse(body);
 
-  const color = await createCategory(name);
+  const category = await createCategory(name);
 
-  return NextResponse.json(color, { status: 201 });
+  return NextResponse.json(category, { status: 201 });
 }

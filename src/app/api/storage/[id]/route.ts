@@ -1,8 +1,9 @@
 import {
-  deleteColor,
-  getColorbyId,
-  updateColor,
-} from "@/repository/colorRepository";
+  deleteStorage,
+  getStoragebyId,
+  updateStorage,
+  getStorages,
+} from "@/repository/storageRepository";
 import { getServerSession } from "next-auth";
 import { NextResponse } from "next/server";
 import z from "zod";
@@ -19,8 +20,9 @@ export async function GET(
 ) {
   const { id } = paramsSchema.parse(params);
 
-  const color = await getColorbyId(id);
-  return NextResponse.json(color);
+  const storageItem = await getStoragebyId(id);
+
+  return NextResponse.json(storageItem);
 }
 
 export async function PUT(request: Request) {
@@ -32,20 +34,31 @@ export async function PUT(request: Request) {
 
   const bodySchema = z.object({
     id: z.coerce.number(),
-    name: z.string(),
+    productId: z.coerce.number(),
+    sizeId: z.coerce.number(),
+    colorId: z.coerce.number(),
+    price: z.coerce.number(),
+    descont: z.coerce.number(),
+    amount: z.coerce.number(),
   });
 
   const body = await request.json();
 
-  const { name, id } = bodySchema.parse(body);
+  const { id, productId, sizeId, colorId, price, descont, amount } =
+    bodySchema.parse(body);
 
   const data = {
     id,
-    name,
+    productId,
+    sizeId,
+    colorId,
+    price,
+    descont,
+    amount,
   };
 
-  const updatedColor = updateColor(id, data);
-  return NextResponse.json(updatedColor);
+  const updatedStorage = updateStorage(id, data);
+  return NextResponse.json(updatedStorage);
 }
 
 export async function DELETE(
@@ -60,6 +73,6 @@ export async function DELETE(
 
   const { id } = paramsSchema.parse(params);
 
-  const deletedColor = await deleteColor(id);
-  return NextResponse.json(deletedColor);
+  const deletedStorage = await deleteStorage(id);
+  return NextResponse.json(deletedStorage);
 }
