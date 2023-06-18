@@ -134,10 +134,7 @@ export const columns: ColumnDef<Storage>[] = [
       const data = row.original;
 
       return (
-        <Link
-          className="hover:text-brand-500"
-          href={`/admin/storage/${data.id}`}
-        >
+        <Link className="hover:text-brand-500" href={`/storage/${data.id}`}>
           <Search />
         </Link>
       );

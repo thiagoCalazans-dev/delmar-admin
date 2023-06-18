@@ -29,6 +29,13 @@ export interface Product {
   brandId: number | null;
 }
 
+export interface Pictures {
+  id: number;
+  url: string;
+  description: string;
+  storageId: number;
+}
+
 export interface Storage {
   id: number;
   price: number;
@@ -37,4 +44,5 @@ export interface Storage {
   product: Product;
   size: Size;
   color: Color;
+  Photos: Pictures[];
 }

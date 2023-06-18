@@ -7,7 +7,13 @@ export default withAuth({
 });
 
 export const config = {
-  matcher: ["/", "/colors", "/categories", "/sizes", "/products", "/storage/:path*"],
-
-
+  matcher: [
+    "/",
+    "/colors",
+    "/categories",
+    "/sizes",
+    "/products",
+    "/storage",
+    "/storage/:path*",
+  ],
 };
