@@ -1,6 +1,6 @@
 import { Storage } from "@/@types/types";
 import { Card } from "@/components/ui/Card";
-import { Container } from "postcss";
+
 
 async function getStorageItem(id: string): Promise<Storage> {
   const response = await fetch(`http://localhost:3000/api/storage/${id}`, {

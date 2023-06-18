@@ -11,27 +11,28 @@ import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { Button } from "../Button";
+import { signOut } from "next-auth/react";
 
 const registerMenuItens = [
   {
     name: "Categorias",
-    path: "/admin/categories",
+    path: "/categories",
   },
   {
     name: "Cores",
-    path: "/admin/colors",
+    path: "/colors",
   },
   {
     name: "Marcas",
-    path: "/admin/brands",
+    path: "/brands",
   },
   {
     name: "Tamanhos",
-    path: "/admin/sizes",
+    path: "/sizes",
   },
   {
     name: "Produtos",
-    path: "/admin/products",
+    path: "/products",
   },
 ];
 
@@ -85,13 +86,13 @@ export function Navbar() {
             </MenubarContent>
           </MenubarMenu>
           <Link
-            href="/admin/storage"
+            href="/storage"
             className="flex h-full cursor-pointer select-none items-center  px-3 py-1.5 text-sm font-medium text-zinc-100 outline-none  focus:bg-zinc-800 hover:bg-zinc-700 hover: data-[state=open]:bg-zinc-800"
           >
             Estoque
           </Link>
         </nav>
-        <Button variant="ghost">
+        <Button variant="ghost" onClick={() => signOut({ redirect: true, callbackUrl: "/signin" })}>
           <DoorOpen />
         </Button>
       </div>
