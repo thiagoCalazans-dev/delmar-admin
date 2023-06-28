@@ -1,4 +1,4 @@
-import { createCategory, getCategorys } from "@/repository/categoryRepository";
+import { createCategory, getCategorys } from "@/server/repository/categoryRepository";
 import { getServerSession } from "next-auth";
 import { NextResponse } from "next/server";
 import { z } from "zod";

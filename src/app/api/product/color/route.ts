@@ -1,4 +1,4 @@
-import { createColor, getColors } from "@/repository/colorRepository";
+import { createColor, getColors } from "@/server/repository/colorRepository";
 import { getServerSession } from "next-auth";
 import { NextResponse } from "next/server";
 import { z } from "zod";

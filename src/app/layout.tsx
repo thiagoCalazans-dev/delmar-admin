@@ -1,8 +1,8 @@
 "use client";
 import { QueryClientProvider } from "react-query";
-import "../styles/globals.css";
+import "@client/styles/globals.css";
 import { Raleway } from "next/font/google";
-import { queryClient } from "@/libs/queryClient";
+import { queryClient } from "@/utils/libs/queryClient";
 
 const raleway = Raleway({ subsets: ["latin"] });
 

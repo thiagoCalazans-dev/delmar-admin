@@ -1,9 +1,10 @@
 import { FormProvider, useForm } from "react-hook-form";
 import z from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { Form } from "@/components/ui/Form";
-import { Button } from "@/components/ui/Button";
-import { supabase } from "@/libs/supabase";
+import { Form } from "@client/components/ui/Form";
+import { Button } from "@client/components/ui/Button";
+import { supabase } from "@/utils/libs/supabase";
+
 
 const createUploadImageFormSchema = z.object({
   id: z.number().nullable().default(null),

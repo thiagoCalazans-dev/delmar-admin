@@ -2,7 +2,7 @@ import {
   deleteCategory,
   getCategorybyId,
   updateCategory,
-} from "@/repository/categoryRepository";
+} from "@/server/repository/categoryRepository";
 import { getServerSession } from "next-auth";
 import { NextResponse } from "next/server";
 import z from "zod";

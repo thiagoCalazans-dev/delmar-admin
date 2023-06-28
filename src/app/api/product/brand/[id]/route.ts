@@ -2,7 +2,7 @@ import {
   deleteBrand,
   getBrandbyId,
   updateBrand,
-} from "@/repository/brandRepository";
+} from "@/server/repository/brandRepository";
 import { getServerSession } from "next-auth";
 import { NextResponse } from "next/server";
 import z from "zod";

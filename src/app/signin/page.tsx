@@ -1,7 +1,6 @@
 "use client";
 import Image from "next/image";
-import { Button } from "@/components/ui/Button";
-import { Form } from "@/components/ui/Form";
+
 import { useState } from "react";
 import { useForm } from "react-hook-form";
 import z from "zod";
@@ -9,7 +8,10 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import Link from "next/link";
 import { signIn } from "next-auth/react";
 import { useRouter } from "next/navigation";
-import { Card } from "@/components/ui/Card";
+import { Card } from "@/client/components/ui/Card";
+import { Form } from "@/client/components/ui/Form";
+import { Button } from "@/client/components/ui/Button";
+
 
 const createLoginFormSchema = z.object({
   email: z

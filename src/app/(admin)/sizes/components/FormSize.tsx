@@ -1,14 +1,14 @@
 "use client";
 
-import { Form } from "@/components/ui/Form";
+import { Form } from "@client/components/ui/Form";
 import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import z from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { Button } from "@/components/ui/Button";
-import { api } from "@/libs/axios";
+import { Button } from "@client/components/ui/Button";
+import { api } from "@/utils/libs/axios";
 import { useRouter } from "next/navigation";
-import { Size } from "@/@types/types";
+import { Size } from "@/client/model/size";
 
 const createSizeFormSchema = z.object({
   id: z.number().nullable().default(null),

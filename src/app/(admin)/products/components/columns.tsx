@@ -1,12 +1,12 @@
 "use client";
 
-import { Button } from "@/components/ui/Button";
+import { Button } from "@client/components/ui/Button";
 import { ColumnDef } from "@tanstack/react-table";
 import { Pencil } from "lucide-react";
 import { ArrowUpDown } from "lucide-react";
-import { AlertDeleteDialog } from "../../../../components/common/AlertDeleteDialog";
-import { Product } from "@/@types/types";
+import { AlertDeleteDialog } from "@client/components/common/AlertDeleteDialog";
 import { DialogProduct } from "./DialogProduct";
+import { Product } from "@/client/model/product";
 
 export const columns: ColumnDef<Product>[] = [
   {

@@ -1,24 +1,22 @@
 "use client";
-
-import { Form } from "@/components/ui/Form";
+import { Storage } from "@/client/model/storage";
+import { Form } from "@client/components/ui/Form";
 import { useEffect, useState } from "react";
 import { Controller, FormProvider, useForm } from "react-hook-form";
 import z from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { Button } from "@/components/ui/Button";
-import { api } from "@/libs/axios";
+import { Button } from "@client/components/ui/Button";
 import { useRouter } from "next/navigation";
-import { SelectSizes } from "@/components/common/SelectButtons/SelectSizes";
-import { Storage } from "@/@types/types";
-import { SelectColors } from "@/components/common/SelectButtons/SelectColors";
-import { Search } from "lucide-react";
-import { SearchProductDialog } from "@/components/common/Dialog/SearchProductDialog";
+import { SelectSizes } from "@client/components/common/SelectButtons/SelectSizes";
+import { SelectColors } from "@client/components/common/SelectButtons/SelectColors";
+import { SearchProductDialog } from "@client/components/common/Dialog/SearchProductDialog";
+import { api } from "@/utils/libs/axios";
 
 const createStorageFormSchema = z.object({
   id: z.number().nullable().default(null),
   product: z.object({
     id: z.string().nonempty("Campo obrigatório"),
-    name: z.string().nonempty()
+    name: z.string().nonempty(),
   }),
   sizeId: z.string().nonempty("Campo obrigatório"),
   colorId: z.string().nonempty("Campo obrigatório"),
@@ -86,7 +84,8 @@ export function FormStorage({ data, closeDialog }: FormStorageProps) {
       setValue("price", String(data.price));
       setValue("descont", String(data.descont));
       setValue("sizeId", String(data.size.id));
-  }}, []);
+    }
+  }, []);
 
   async function onSubmit(data: StorageForm) {
     setIsLoading(true);
@@ -132,22 +131,19 @@ export function FormStorage({ data, closeDialog }: FormStorageProps) {
           <Form.Control className="w-full ">
             <Form.Label htmlFor="productId">Produto</Form.Label>
             <div className="flex gap-2">
-            <Form.Input
-              id="product.id"
-              type="text"
-              disabled={isLoading}
-              register={register}
-              required
-              className="max-w-[3rem]"
-            />
-            <Form.Input id="product.name" disabled register={register} />
-<SearchProductDialog/>
-            
+              <Form.Input
+                id="product.id"
+                type="text"
+                disabled={isLoading}
+                register={register}
+                required
+                className="max-w-[3rem]"
+              />
+              <Form.Input id="product.name" disabled register={register} />
+              <SearchProductDialog />
             </div>
             <Form.ErrorMessage field="product.id" />
-            
-          </Form.Control >
-         
+          </Form.Control>
 
           <Form.Control className="w-full flex items-end justify-between gap-2">
             <div className="flex-1 min-w-[8rem]">
@@ -159,49 +155,48 @@ export function FormStorage({ data, closeDialog }: FormStorageProps) {
                 register={register}
                 required
               />
-            </div>   
+            </div>
             <div className="flex-1 min-w-[8rem]">
-            <Form.Label htmlFor="descont">Desconto</Form.Label>
-            <Form.Input
-              id="descont"
-              type="text"
-              disabled={isLoading}
-              register={register}
-              required
-            />
-            <Form.ErrorMessage field="amount" />
-          </div>  
-          <div className="flex-1 min-w-[8rem]">
-            <Form.Label htmlFor="amount">Quantidade</Form.Label>
-            <Form.Input
-              id="amount"
-              type="text"
-              disabled={isLoading}
-              register={register}
-              required
-            />
-            <Form.ErrorMessage field="amount" />
-          </div>      
+              <Form.Label htmlFor="descont">Desconto</Form.Label>
+              <Form.Input
+                id="descont"
+                type="text"
+                disabled={isLoading}
+                register={register}
+                required
+              />
+              <Form.ErrorMessage field="amount" />
+            </div>
+            <div className="flex-1 min-w-[8rem]">
+              <Form.Label htmlFor="amount">Quantidade</Form.Label>
+              <Form.Input
+                id="amount"
+                type="text"
+                disabled={isLoading}
+                register={register}
+                required
+              />
+              <Form.ErrorMessage field="amount" />
+            </div>
           </Form.Control>
           <div className="w-full flex items-end justify-between gap-2">
             <Form.ErrorMessage field="price" />
-            
           </div>
         </div>
         <Form.Control>
-        <Controller
-              name="sizeId"
-              control={control}
-              render={({ field }) => <SelectSizes field={field} data={data} />}
-            />
-            </Form.Control>
-            <Form.Control>
-        <Controller
-          name="colorId"
-          control={control}
-          render={({ field }) => <SelectColors field={field} data={data} />}
-        />
-        <Form.ErrorMessage field="colorId" />
+          <Controller
+            name="sizeId"
+            control={control}
+            render={({ field }) => <SelectSizes field={field} data={data} />}
+          />
+        </Form.Control>
+        <Form.Control>
+          <Controller
+            name="colorId"
+            control={control}
+            render={({ field }) => <SelectColors field={field} data={data} />}
+          />
+          <Form.ErrorMessage field="colorId" />
         </Form.Control>
         <Button
           className="mt-2"

@@ -1,17 +1,18 @@
 "use client";
 
-import { Form } from "@/components/ui/Form";
+import { Form } from "@client/components/ui/Form";
 import { useEffect, useState } from "react";
 import { Controller, FormProvider, useForm } from "react-hook-form";
 import z from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { Button } from "@/components/ui/Button";
-import { api } from "@/libs/axios";
+import { Button } from "@client/components/ui/Button";
+import { api } from "@/utils/libs/axios";
 import { useRouter } from "next/navigation";
-import { Product } from "@/@types/types";
-import { SelectBrands } from "@/components/common/SelectButtons/SelectBrands";
-import { SelectCategories } from "@/components/common/SelectButtons/SelectCategories";
+
+import { SelectBrands } from "@client/components/common/SelectButtons/SelectBrands";
+import { SelectCategories } from "@client/components/common/SelectButtons/SelectCategories";
 import { Checkbox } from "@radix-ui/react-checkbox";
+import { Product } from "@/client/model/product";
 
 const createProductFormSchema = z.object({
   id: z.number().nullable().default(null),

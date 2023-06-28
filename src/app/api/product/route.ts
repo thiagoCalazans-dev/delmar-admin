@@ -1,4 +1,4 @@
-import { createProduct, getProducts } from "@/repository/productRepository";
+import { createProduct, getProducts } from "@/server/repository/productRepository";
 
 import { getServerSession } from "next-auth";
 import { NextResponse } from "next/server";

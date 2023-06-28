@@ -20,11 +20,12 @@ import {
   TableHeader,
   TableRow,
   TableHeadRow,
-} from "@/components/ui/Table";
-import { Button } from "@/components/ui/Button";
-import { Input } from "@/components/ui/Input";
+} from "@client/components/ui/Table";
+
 import { useState } from "react";
 import { DialogColor } from "./DialogColor";
+import { Input } from "@/client/components/ui/Input";
+import { Button } from "@/client/components/ui/Button";
 
 interface DataTableProps<TData, TValue> {
   columns: ColumnDef<TData, TValue>[];

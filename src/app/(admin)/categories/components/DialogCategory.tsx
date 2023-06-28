@@ -1,14 +1,15 @@
-import { Button } from "@/components/ui/Button";
+import { Button } from "@client/components/ui/Button";
 import {
   Dialog,
   DialogTrigger,
   DialogContent,
   DialogTitle,
   DialogHeader,
-} from "@/components/ui/Dialog";
+} from "@client/components/ui/Dialog";
 import { ReactNode, useState } from "react";
-import { Category } from "@/@types/types";
 import { FormCategory } from "./FormCategory";
+import { Category } from "@/client/model/category";
+
 
 interface CategoryDialogProps {
   children: ReactNode;

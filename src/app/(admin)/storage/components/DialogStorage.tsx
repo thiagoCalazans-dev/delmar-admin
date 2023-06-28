@@ -1,13 +1,14 @@
-import { Button } from "@/components/ui/Button";
+import { Button } from "@client/components/ui/Button";
+import { Storage } from "@/client/model/storage";
 import {
   Dialog,
   DialogTrigger,
   DialogContent,
   DialogTitle,
   DialogHeader,
-} from "@/components/ui/Dialog";
+} from "@client/components/ui/Dialog";
 import { ReactNode, useState } from "react";
-import { Storage } from "@/@types/types";
+
 import { FormStorage } from "./FormStorage";
 
 interface StorageDialogProps {

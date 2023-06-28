@@ -1,13 +1,13 @@
 "use client";
-import axios from "axios";
-import { Button } from "@/components/ui/Button";
-import { Form } from "@/components/ui/Form";
+import { Button } from "@client/components/ui/Button";
+import { Form } from "@client/components/ui/Form";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
 import z from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import Link from "next/link";
-import { Card } from "@/components/ui/Card";
+import { Card } from "@client/components/ui/Card";
+import { api } from "@/utils/libs/axios";
 
 const createRegisterFormSchema = z.object({
   name: z.string().nonempty("Campo obrigatório"),
@@ -34,8 +34,8 @@ export default function SignUp() {
   function Register(data: any) {
     setIsLoading(true);
 
-    axios
-      .post("/api/register", data)
+    api
+      .post("/register", data)
       .then(() => {
         console.log("Registered!");
       })

@@ -3,7 +3,7 @@ import {
   getStoragebyId,
   updateStorage,
   getStorages,
-} from "@/repository/storageRepository";
+} from "@/server/repository/storageRepository";
 import { getServerSession } from "next-auth";
 import { NextResponse } from "next/server";
 import z from "zod";

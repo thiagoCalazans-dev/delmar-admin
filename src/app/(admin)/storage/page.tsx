@@ -1,5 +1,5 @@
-import { Product, Storage } from "@/@types/types";
-import { LoadingLogo } from "@/components/ui/LoadingLogo";
+import { Storage } from "@/client/model/storage";
+import { LoadingLogo } from "@client/components/ui/LoadingLogo";
 import { Suspense } from "react";
 import { DataTable } from "./components/DataTable";
 import { columns } from "./components/columns";

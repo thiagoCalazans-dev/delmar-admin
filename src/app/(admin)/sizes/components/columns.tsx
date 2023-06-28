@@ -1,14 +1,15 @@
 "use client";
 
-import { Button } from "@/components/ui/Button";
+import { Button } from "@client/components/ui/Button";
 import { ColumnDef } from "@tanstack/react-table";
 import { Pencil } from "lucide-react";
 import { ArrowUpDown } from "lucide-react";
 import { DialogSize } from "./DialogSize";
-import { AlertDeleteDialog } from "../../../../components/common/AlertDeleteDialog";
-import { Color } from "@/@types/types";
+import { AlertDeleteDialog } from "@client/components/common/AlertDeleteDialog";
+import { Size } from "@/client/model/size";
 
-export const columns: ColumnDef<Color>[] = [
+
+export const columns: ColumnDef<Size>[] = [
   {
     accessorKey: "id",
     header: ({ column }) => {

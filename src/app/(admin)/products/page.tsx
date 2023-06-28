@@ -1,8 +1,9 @@
-import { Product } from "@/@types/types";
-import { LoadingLogo } from "@/components/ui/LoadingLogo";
+
+import { LoadingLogo } from "@client/components/ui/LoadingLogo";
 import { Suspense } from "react";
 import { DataTable } from "./components/DataTable";
 import { columns } from "./components/columns";
+import { Product } from "@/client/model/product";
 
 async function fetchProducts(): Promise<Product[]> {
   const response = await fetch("http://localhost:3000/api/product", {

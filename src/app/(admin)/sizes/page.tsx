@@ -1,8 +1,8 @@
 import { Suspense } from "react";
 import { columns } from "./components/columns";
+import { LoadingLogo } from "@client/components/ui/LoadingLogo";
+import { Size } from "@/client/model/size";
 
-import { LoadingLogo } from "@/components/ui/LoadingLogo";
-import { Size } from "@/@types/types";
 import { DataTable } from "./components/DataTable";
 
 async function getSizes(): Promise<Size[]> {

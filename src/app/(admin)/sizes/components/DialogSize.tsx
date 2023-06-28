@@ -1,14 +1,16 @@
-import { Button } from "@/components/ui/Button";
+import { Button } from "@client/components/ui/Button";
 import {
   Dialog,
   DialogTrigger,
   DialogContent,
   DialogTitle,
   DialogHeader,
-} from "@/components/ui/Dialog";
+} from "@client/components/ui/Dialog";
 import { ReactNode, useState } from "react";
-import { Size } from "@/@types/types";
+
 import { FormSize } from "./FormSize";
+import { Size } from "@/client/model/size";
+
 
 interface SizeDialogProps {
   children: ReactNode;

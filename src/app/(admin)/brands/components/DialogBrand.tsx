@@ -1,14 +1,15 @@
-import { Button } from "@/components/ui/Button";
+import { Button } from "@client/components/ui/Button";
 import {
   Dialog,
   DialogTrigger,
   DialogContent,
   DialogTitle,
   DialogHeader,
-} from "@/components/ui/Dialog";
+} from "@client/components/ui/Dialog";
 import { ReactNode, useState } from "react";
-import { Brand } from "@/@types/types";
+
 import { FormBrand } from "./FormBrand";
+import { Brand } from "@/client/model/brand";
 
 interface BrandDialogProps {
   children: ReactNode;

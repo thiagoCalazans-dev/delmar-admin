@@ -1,4 +1,4 @@
-import { createStorage, getStorages } from "@/repository/storageRepository";
+import { createStorage, getStorages } from "@/server/repository/storageRepository";
 
 import { getServerSession } from "next-auth";
 import { NextResponse } from "next/server";

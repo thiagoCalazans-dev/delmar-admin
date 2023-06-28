@@ -1,14 +1,15 @@
-import { Button } from "@/components/ui/Button";
+import { Button } from "@client/components/ui/Button";
 import {
   Dialog,
   DialogTrigger,
   DialogContent,
   DialogTitle,
   DialogHeader,
-} from "@/components/ui/Dialog";
+} from "@client/components/ui/Dialog";
 import { FormColor } from "./FormColor";
 import { ReactNode, useState } from "react";
-import { Color } from "@/@types/types";
+import { Color } from "@/client/model/color";
+
 
 interface ColorDialogProps {
   children: ReactNode;

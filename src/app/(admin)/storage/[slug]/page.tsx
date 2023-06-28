@@ -1,8 +1,7 @@
-import { Storage } from "@/@types/types";
-import { Button } from "@/components/ui/Button";
-import { Card } from "@/components/ui/Card";
+
 import Image from "next/image";
 import { DialogImageUpload } from "./components/DialogImageUpload";
+import { Card } from "@/client/components/ui/Card";
 
 async function getStorageItem(id: string): Promise<Storage> {
   const response = await fetch(`http://localhost:3000/api/storage/${id}`, {
@@ -63,7 +62,7 @@ export default async function StorageItem({
           <strong>Imagens:</strong>
           <DialogImageUpload />
           <div className="flex mt-2 gap-2 items-center justify-start bg-red-300">
-            {storageItem.Photos.map((img) => {
+            {storageItem.Photos.map((img: any) => {
               return (
                 <div key={img.id} className="relative h-28 w-28">
                   <Image

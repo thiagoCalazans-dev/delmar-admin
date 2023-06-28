@@ -1,14 +1,13 @@
 "use client";
-import { Button } from "@/components/ui/Button";
+import { Button } from "@client/components/ui/Button";
 import {
   Dialog,
   DialogTrigger,
   DialogContent,
   DialogTitle,
   DialogHeader,
-} from "@/components/ui/Dialog";
-import { ReactNode, useState } from "react";
-import { Product } from "@/@types/types";
+} from "@client/components/ui/Dialog";
+import {  useState } from "react";
 import { FormImageUpload } from "./FormImageUpload";
 
 export function DialogImageUpload() {

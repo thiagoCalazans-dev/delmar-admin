@@ -20,9 +20,9 @@ import {
   TableHeader,
   TableRow,
   TableHeadRow,
-} from "@/components/ui/Table";
-import { Button } from "@/components/ui/Button";
-import { Input } from "@/components/ui/Input";
+} from "@client/components/ui/Table";
+import { Button } from "@client/components/ui/Button";
+import { Input } from "@client/components/ui/Input";
 import { useState } from "react";
 import { DialogSize } from "./DialogSize";
 

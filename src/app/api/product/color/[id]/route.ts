@@ -2,7 +2,7 @@ import {
   deleteColor,
   getColorbyId,
   updateColor,
-} from "@/repository/colorRepository";
+} from "@/server/repository/colorRepository";
 import { getServerSession } from "next-auth";
 import { NextResponse } from "next/server";
 import z from "zod";

@@ -2,7 +2,7 @@ import {
   deleteProduct,
   getProductbyId,
   updateProduct,
-} from "@/repository/productRepository";
+} from "@/server/repository/productRepository";
 import { getServerSession } from "next-auth";
 import { NextResponse } from "next/server";
 import z from "zod";

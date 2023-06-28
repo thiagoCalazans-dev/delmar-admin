@@ -1,4 +1,4 @@
-import { createSize, getSizes } from "@/repository/sizeRepository";
+import { createSize, getSizes } from "@/server/repository/sizeRepository";
 import { getServerSession } from "next-auth";
 import { NextResponse } from "next/server";
 import { z } from "zod";

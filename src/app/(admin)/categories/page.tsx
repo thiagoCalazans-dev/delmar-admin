@@ -1,7 +1,9 @@
 import { Suspense } from "react";
 import { columns } from "./components/columns";
-import { LoadingLogo } from "@/components/ui/LoadingLogo";
-import { Category } from "@/@types/types";
+import { LoadingLogo } from "@client/components/ui/LoadingLogo";
+import { Category } from "@/client/model/category";
+
+
 import { DataTable } from "./components/DataTable";
 
 async function getCategories(): Promise<Category[]> {

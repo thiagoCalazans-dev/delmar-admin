@@ -1,4 +1,4 @@
-import { createBrand, getBrands } from "@/repository/brandRepository";
+import { createBrand, getBrands } from "@/server/repository/brandRepository";
 import { getServerSession } from "next-auth";
 import { NextResponse } from "next/server";
 import { z } from "zod";

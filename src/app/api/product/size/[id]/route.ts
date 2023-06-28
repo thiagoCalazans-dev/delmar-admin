@@ -2,7 +2,7 @@ import {
   deleteSize,
   getSizebyId,
   updateSize,
-} from "@/repository/sizeRepository";
+} from "@/server/repository/sizeRepository";
 import { getServerSession } from "next-auth";
 import { NextResponse } from "next/server";
 import z from "zod";

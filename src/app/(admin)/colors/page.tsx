@@ -1,22 +1,13 @@
 import { Suspense } from "react";
 import { columns } from "./components/columns";
-
-import { LoadingLogo } from "@/components/ui/LoadingLogo";
-import { Color } from "@/@types/types";
+import { LoadingLogo } from "@client/components/ui/LoadingLogo";
 import { DataTable } from "./components/DataTable";
+import { Color } from "@/client/model/color";
+import { colorActions } from "@/client/actions/colorAction";
 
-async function getColors(): Promise<Color[]> {
-  const response = await fetch("http://localhost:3000/api/product/color", {
-    cache: "no-store",
-  });
-  if (!response.ok) {
-    throw new Error("failed fetch");
-  }
-  return response.json();
-}
 
 export default async function Colors() {
-  const colors = await getColors();
+  const colors = await colorActions.get()
 
   return (
     <div className="container mx-auto sm:max-w-2xl">
