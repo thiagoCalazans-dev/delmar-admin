@@ -1,29 +1,12 @@
-import { createColor, getColors } from "@/server/repository/colorRepository";
+import { colorController } from "@/server/controller/colorServerController";
 import { getServerSession } from "next-auth";
 import { NextResponse } from "next/server";
-import { z } from "zod";
 
 export async function GET(request: Request) {
-  const colors = await getColors();
-  return NextResponse.json(colors, { status: 200 });
+  return await colorController.get(request);
 }
 
-export async function POST(request: Request) {
-  const session = await getServerSession();
+export async function POST(request: Request) {  
 
-  if (!session) {
-    return new NextResponse(null, { status: 401 });
-  }
-
-  const bodySchema = z.object({
-    name: z.string(),
-  });
-
-  const body = await request.json();
-
-  const { name } = bodySchema.parse(body);
-
-  const color = await createColor(name);
-
-  return NextResponse.json(color, { status: 201 });
+   return await colorController.create(request);
 }

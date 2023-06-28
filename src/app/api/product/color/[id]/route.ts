@@ -1,65 +1,20 @@
-import {
-  deleteColor,
-  getColorbyId,
-  updateColor,
-} from "@/server/repository/colorRepository";
-import { getServerSession } from "next-auth";
-import { NextResponse } from "next/server";
-import z from "zod";
-
-const paramsSchema = z.object({
-  id: z.coerce.number(),
-});
-
-type paramsType = z.infer<typeof paramsSchema>;
+import { colorController } from "@/server/controller/colorServerController";
+import { colorParams } from "@/server/schema/colorSchema";
 
 export async function GET(
   request: Request,
-  { params }: { params: paramsType }
+  { params }: { params: colorParams }
 ) {
-  const { id } = paramsSchema.parse(params);
-
-  const color = await getColorbyId(id);
-  return NextResponse.json(color);
+  return await colorController.getById(params);
 }
 
 export async function PUT(request: Request) {
-  const session = await getServerSession();
-
-  if (!session) {
-    return new NextResponse(null, { status: 401 });
-  }
-
-  const bodySchema = z.object({
-    id: z.coerce.number(),
-    name: z.string(),
-  });
-
-  const body = await request.json();
-
-  const { name, id } = bodySchema.parse(body);
-
-  const data = {
-    id,
-    name,
-  };
-
-  const updatedColor = updateColor(id, data);
-  return NextResponse.json(updatedColor);
+  return await colorController.updateColorById(request);
 }
 
 export async function DELETE(
   request: Request,
-  { params }: { params: paramsType }
+  { params }: { params: colorParams }
 ) {
-  const session = await getServerSession();
-
-  if (!session) {
-    return new NextResponse(null, { status: 401 });
-  }
-
-  const { id } = paramsSchema.parse(params);
-
-  const deletedColor = await deleteColor(id);
-  return NextResponse.json(deletedColor);
+  return await colorController.deleteColorById(request, params);
 }
